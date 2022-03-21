@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  CognizantCurrencyDemo
 //
-//  Created by G Bear on 2022-03-21.
+//  Created by Greg Wishart on 2022-03-21.
 //
 
 import UIKit
