@@ -16,6 +16,11 @@
 		27F6DEBF27E8DD0300CCDD2D /* CognizantCurrencyDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DEBE27E8DD0300CCDD2D /* CognizantCurrencyDemoTests.swift */; };
 		27F6DEC927E8DD0300CCDD2D /* CognizantCurrencyDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DEC827E8DD0300CCDD2D /* CognizantCurrencyDemoUITests.swift */; };
 		27F6DECB27E8DD0300CCDD2D /* CognizantCurrencyDemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DECA27E8DD0300CCDD2D /* CognizantCurrencyDemoUITestsLaunchTests.swift */; };
+		B57F71B427E9330800732190 /* CurrencyScoopServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71B327E9330800732190 /* CurrencyScoopServiceTests.swift */; };
+		B57F71B727E93BFA00732190 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71B627E93BFA00732190 /* NetworkClient.swift */; };
+		B57F71B927E93C1C00732190 /* EndpointProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71B827E93C1C00732190 /* EndpointProvider.swift */; };
+		B57F71BB27E93C4F00732190 /* CurrencyScoopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71BA27E93C4F00732190 /* CurrencyScoopService.swift */; };
+		B57F71BE27E93C8300732190 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71BD27E93C8300732190 /* Currency.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +54,11 @@
 		27F6DEC427E8DD0300CCDD2D /* CognizantCurrencyDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CognizantCurrencyDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F6DEC827E8DD0300CCDD2D /* CognizantCurrencyDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognizantCurrencyDemoUITests.swift; sourceTree = "<group>"; };
 		27F6DECA27E8DD0300CCDD2D /* CognizantCurrencyDemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognizantCurrencyDemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B57F71B327E9330800732190 /* CurrencyScoopServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyScoopServiceTests.swift; sourceTree = "<group>"; };
+		B57F71B627E93BFA00732190 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		B57F71B827E93C1C00732190 /* EndpointProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointProvider.swift; sourceTree = "<group>"; };
+		B57F71BA27E93C4F00732190 /* CurrencyScoopService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyScoopService.swift; sourceTree = "<group>"; };
+		B57F71BD27E93C8300732190 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +109,12 @@
 		27F6DEA627E8DD0100CCDD2D /* CognizantCurrencyDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B57F71BC27E93C7100732190 /* Entities */,
+				B57F71B527E93BE800732190 /* Network */,
 				27F6DEA727E8DD0100CCDD2D /* AppDelegate.swift */,
 				27F6DEA927E8DD0100CCDD2D /* SceneDelegate.swift */,
 				27F6DEAB27E8DD0100CCDD2D /* ViewController.swift */,
+				B57F71BA27E93C4F00732190 /* CurrencyScoopService.swift */,
 				27F6DEAD27E8DD0100CCDD2D /* Main.storyboard */,
 				27F6DEB027E8DD0300CCDD2D /* Assets.xcassets */,
 				27F6DEB227E8DD0300CCDD2D /* LaunchScreen.storyboard */,
@@ -113,6 +126,7 @@
 		27F6DEBD27E8DD0300CCDD2D /* CognizantCurrencyDemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				B57F71B327E9330800732190 /* CurrencyScoopServiceTests.swift */,
 				27F6DEBE27E8DD0300CCDD2D /* CognizantCurrencyDemoTests.swift */,
 			);
 			path = CognizantCurrencyDemoTests;
@@ -125,6 +139,23 @@
 				27F6DECA27E8DD0300CCDD2D /* CognizantCurrencyDemoUITestsLaunchTests.swift */,
 			);
 			path = CognizantCurrencyDemoUITests;
+			sourceTree = "<group>";
+		};
+		B57F71B527E93BE800732190 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				B57F71B627E93BFA00732190 /* NetworkClient.swift */,
+				B57F71B827E93C1C00732190 /* EndpointProvider.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		B57F71BC27E93C7100732190 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				B57F71BD27E93C8300732190 /* Currency.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +290,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				27F6DEAC27E8DD0100CCDD2D /* ViewController.swift in Sources */,
+				B57F71BB27E93C4F00732190 /* CurrencyScoopService.swift in Sources */,
+				B57F71B927E93C1C00732190 /* EndpointProvider.swift in Sources */,
 				27F6DEA827E8DD0100CCDD2D /* AppDelegate.swift in Sources */,
 				27F6DEAA27E8DD0100CCDD2D /* SceneDelegate.swift in Sources */,
+				B57F71BE27E93C8300732190 /* Currency.swift in Sources */,
+				B57F71B727E93BFA00732190 /* NetworkClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27F6DEBF27E8DD0300CCDD2D /* CognizantCurrencyDemoTests.swift in Sources */,
+				B57F71B427E9330800732190 /* CurrencyScoopServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +402,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -420,7 +456,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -494,7 +530,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.CognizantCurrencyDemoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -513,7 +549,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.CognizantCurrencyDemoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
