@@ -21,7 +21,10 @@ class EndpointProvider {
         components.scheme = "https"
         components.host = "api.currencyscoop.com"
         components.path = "/v1/" + path
-        let apiKeyQueryItem = URLQueryItem(name: "api_key", value: "fail")
+        let apiKeyQueryItem = URLQueryItem(
+            name: "api_key",
+            value: ProcessInfo.processInfo.environment["CURRENCY_SCOOP_API_KEY"]
+        )
         components.queryItems = [apiKeyQueryItem] + queryItems
         guard let url = components.url else {
             fatalError()
