@@ -28,6 +28,9 @@
 		B57F71CA27EB691A00732190 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71C927EB691A00732190 /* OptionsViewController.swift */; };
 		B57F71CC27EB6E2200732190 /* OptionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71CB27EB6E2200732190 /* OptionsPresenter.swift */; };
 		B57F71CE27EB6E4500732190 /* OptionsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71CD27EB6E4500732190 /* OptionsRouter.swift */; };
+		B57F71D127EB74C400732190 /* CurrencyPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71D027EB74C400732190 /* CurrencyPickerViewController.swift */; };
+		B57F71D327EB754D00732190 /* CurrencyPickerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71D227EB754D00732190 /* CurrencyPickerInteractor.swift */; };
+		B57F71D527EB757400732190 /* CurrencyPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71D427EB757400732190 /* CurrencyPickerPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,9 @@
 		B57F71C927EB691A00732190 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		B57F71CB27EB6E2200732190 /* OptionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsPresenter.swift; sourceTree = "<group>"; };
 		B57F71CD27EB6E4500732190 /* OptionsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsRouter.swift; sourceTree = "<group>"; };
+		B57F71D027EB74C400732190 /* CurrencyPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerViewController.swift; sourceTree = "<group>"; };
+		B57F71D227EB754D00732190 /* CurrencyPickerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerInteractor.swift; sourceTree = "<group>"; };
+		B57F71D427EB757400732190 /* CurrencyPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,7 @@
 				27F6DEAB27E8DD0100CCDD2D /* ViewController.swift */,
 				B57F71BF27EB5F3900732190 /* TabBarController.swift */,
 				B57F71BA27E93C4F00732190 /* CurrencyScoopService.swift */,
+				B57F71CF27EB741900732190 /* CurrencyPicker */,
 				B57F71C127EB62CE00732190 /* Favorites */,
 				B57F71C827EB68FE00732190 /* Options */,
 				27F6DEAD27E8DD0100CCDD2D /* Main.storyboard */,
@@ -193,6 +200,16 @@
 				B57F71CD27EB6E4500732190 /* OptionsRouter.swift */,
 			);
 			path = Options;
+			sourceTree = "<group>";
+		};
+		B57F71CF27EB741900732190 /* CurrencyPicker */ = {
+			isa = PBXGroup;
+			children = (
+				B57F71D027EB74C400732190 /* CurrencyPickerViewController.swift */,
+				B57F71D227EB754D00732190 /* CurrencyPickerInteractor.swift */,
+				B57F71D427EB757400732190 /* CurrencyPickerPresenter.swift */,
+			);
+			path = CurrencyPicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,10 +351,13 @@
 				B57F71B927E93C1C00732190 /* EndpointProvider.swift in Sources */,
 				27F6DEA827E8DD0100CCDD2D /* AppDelegate.swift in Sources */,
 				27F6DEAA27E8DD0100CCDD2D /* SceneDelegate.swift in Sources */,
+				B57F71D127EB74C400732190 /* CurrencyPickerViewController.swift in Sources */,
 				B57F71BE27E93C8300732190 /* Currency.swift in Sources */,
+				B57F71D527EB757400732190 /* CurrencyPickerPresenter.swift in Sources */,
 				B57F71CE27EB6E4500732190 /* OptionsRouter.swift in Sources */,
 				B57F71CA27EB691A00732190 /* OptionsViewController.swift in Sources */,
 				B57F71C727EB68CD00732190 /* FavoritesRouter.swift in Sources */,
+				B57F71D327EB754D00732190 /* CurrencyPickerInteractor.swift in Sources */,
 				B57F71CC27EB6E2200732190 /* OptionsPresenter.swift in Sources */,
 				B57F71B727E93BFA00732190 /* NetworkClient.swift in Sources */,
 			);

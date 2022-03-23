@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol OptionsPresenterProtocol {
     func handleDone()
@@ -15,6 +16,8 @@ protocol OptionsPresenterProtocol {
 class OptionsPresenter: OptionsPresenterProtocol {
 
     private let router: OptionsRouterProtocol
+    private var selectedCurrencySubscription: AnyCancellable?
+    private var baseCurrencyCode = "USD"
 
     init(router: OptionsRouterProtocol) {
         self.router = router
@@ -25,6 +28,10 @@ class OptionsPresenter: OptionsPresenterProtocol {
     }
 
     func handleTap() {
-        router.routeToCurrencyPicker()
+        selectedCurrencySubscription = router.routeToCurrencyPicker(
+            selectedCurrencyCode: baseCurrencyCode
+        ).sink { [weak self] in
+            self?.baseCurrencyCode = $0.currencyCode
+        }
     }
 }
