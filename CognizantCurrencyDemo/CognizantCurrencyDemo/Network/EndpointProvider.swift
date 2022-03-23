@@ -7,8 +7,11 @@
 
 import Foundation
 
+// class containing functions that supply the URLs for CurrencyScoop.com
 class EndpointProvider {
 
+    /// computed variable that returns the URL for getting all the currencies
+    /// (should return something like "https://api.currencyscoop.com/v1/currencies?api_key=f447...ddfe&type=fiat")
     static var currenciesEndpoint: URL {
         endpoint(
             with: "currencies",
@@ -16,6 +19,11 @@ class EndpointProvider {
         )
     }
 
+    /// private helper function for building URLs for CurrencyScoop.com
+    /// - Parameters:
+    ///   - path: the API name
+    ///   - queryItems: the
+    /// - Returns: URL for the API requested
     private static func endpoint(with path: String, queryItems: [URLQueryItem]) -> URL {
         var components = URLComponents()
         components.scheme = "https"
@@ -23,7 +31,7 @@ class EndpointProvider {
         components.path = "/v1/" + path
         let apiKeyQueryItem = URLQueryItem(
             name: "api_key",
-            value: ProcessInfo.processInfo.environment["CURRENCY_SCOOP_API_KEY"]
+            value: ProcessInfo.processInfo.environment["CURRENCY_SCOOP_API_KEY"] // see https://www.swiftdevjournal.com/using-environment-variables-in-swift-apps/ for setting this
         )
         components.queryItems = [apiKeyQueryItem] + queryItems
         guard let url = components.url else {
