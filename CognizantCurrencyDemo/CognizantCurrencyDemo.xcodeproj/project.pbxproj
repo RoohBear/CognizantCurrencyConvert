@@ -21,6 +21,16 @@
 		B57F71B927E93C1C00732190 /* EndpointProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71B827E93C1C00732190 /* EndpointProvider.swift */; };
 		B57F71BB27E93C4F00732190 /* CurrencyScoopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71BA27E93C4F00732190 /* CurrencyScoopService.swift */; };
 		B57F71BE27E93C8300732190 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71BD27E93C8300732190 /* Currency.swift */; };
+		B57F71C027EB5F3900732190 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71BF27EB5F3900732190 /* TabBarController.swift */; };
+		B57F71C327EB62E800732190 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71C227EB62E800732190 /* FavoritesViewController.swift */; };
+		B57F71C527EB68AE00732190 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71C427EB68AE00732190 /* FavoritesPresenter.swift */; };
+		B57F71C727EB68CD00732190 /* FavoritesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71C627EB68CD00732190 /* FavoritesRouter.swift */; };
+		B57F71CA27EB691A00732190 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71C927EB691A00732190 /* OptionsViewController.swift */; };
+		B57F71CC27EB6E2200732190 /* OptionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71CB27EB6E2200732190 /* OptionsPresenter.swift */; };
+		B57F71CE27EB6E4500732190 /* OptionsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71CD27EB6E4500732190 /* OptionsRouter.swift */; };
+		B57F71D127EB74C400732190 /* CurrencyPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71D027EB74C400732190 /* CurrencyPickerViewController.swift */; };
+		B57F71D327EB754D00732190 /* CurrencyPickerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71D227EB754D00732190 /* CurrencyPickerInteractor.swift */; };
+		B57F71D527EB757400732190 /* CurrencyPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71D427EB757400732190 /* CurrencyPickerPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +69,16 @@
 		B57F71B827E93C1C00732190 /* EndpointProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointProvider.swift; sourceTree = "<group>"; };
 		B57F71BA27E93C4F00732190 /* CurrencyScoopService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyScoopService.swift; sourceTree = "<group>"; };
 		B57F71BD27E93C8300732190 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		B57F71BF27EB5F3900732190 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		B57F71C227EB62E800732190 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		B57F71C427EB68AE00732190 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
+		B57F71C627EB68CD00732190 /* FavoritesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRouter.swift; sourceTree = "<group>"; };
+		B57F71C927EB691A00732190 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
+		B57F71CB27EB6E2200732190 /* OptionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsPresenter.swift; sourceTree = "<group>"; };
+		B57F71CD27EB6E4500732190 /* OptionsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsRouter.swift; sourceTree = "<group>"; };
+		B57F71D027EB74C400732190 /* CurrencyPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerViewController.swift; sourceTree = "<group>"; };
+		B57F71D227EB754D00732190 /* CurrencyPickerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerInteractor.swift; sourceTree = "<group>"; };
+		B57F71D427EB757400732190 /* CurrencyPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +134,11 @@
 				27F6DEA727E8DD0100CCDD2D /* AppDelegate.swift */,
 				27F6DEA927E8DD0100CCDD2D /* SceneDelegate.swift */,
 				27F6DEAB27E8DD0100CCDD2D /* ViewController.swift */,
+				B57F71BF27EB5F3900732190 /* TabBarController.swift */,
 				B57F71BA27E93C4F00732190 /* CurrencyScoopService.swift */,
+				B57F71CF27EB741900732190 /* CurrencyPicker */,
+				B57F71C127EB62CE00732190 /* Favorites */,
+				B57F71C827EB68FE00732190 /* Options */,
 				27F6DEAD27E8DD0100CCDD2D /* Main.storyboard */,
 				27F6DEB027E8DD0300CCDD2D /* Assets.xcassets */,
 				27F6DEB227E8DD0300CCDD2D /* LaunchScreen.storyboard */,
@@ -156,6 +180,36 @@
 				B57F71BD27E93C8300732190 /* Currency.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		B57F71C127EB62CE00732190 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				B57F71C227EB62E800732190 /* FavoritesViewController.swift */,
+				B57F71C427EB68AE00732190 /* FavoritesPresenter.swift */,
+				B57F71C627EB68CD00732190 /* FavoritesRouter.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		B57F71C827EB68FE00732190 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				B57F71C927EB691A00732190 /* OptionsViewController.swift */,
+				B57F71CB27EB6E2200732190 /* OptionsPresenter.swift */,
+				B57F71CD27EB6E4500732190 /* OptionsRouter.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
+		B57F71CF27EB741900732190 /* CurrencyPicker */ = {
+			isa = PBXGroup;
+			children = (
+				B57F71D027EB74C400732190 /* CurrencyPickerViewController.swift */,
+				B57F71D227EB754D00732190 /* CurrencyPickerInteractor.swift */,
+				B57F71D427EB757400732190 /* CurrencyPickerPresenter.swift */,
+			);
+			path = CurrencyPicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,12 +343,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B57F71C527EB68AE00732190 /* FavoritesPresenter.swift in Sources */,
 				27F6DEAC27E8DD0100CCDD2D /* ViewController.swift in Sources */,
+				B57F71C327EB62E800732190 /* FavoritesViewController.swift in Sources */,
+				B57F71C027EB5F3900732190 /* TabBarController.swift in Sources */,
 				B57F71BB27E93C4F00732190 /* CurrencyScoopService.swift in Sources */,
 				B57F71B927E93C1C00732190 /* EndpointProvider.swift in Sources */,
 				27F6DEA827E8DD0100CCDD2D /* AppDelegate.swift in Sources */,
 				27F6DEAA27E8DD0100CCDD2D /* SceneDelegate.swift in Sources */,
+				B57F71D127EB74C400732190 /* CurrencyPickerViewController.swift in Sources */,
 				B57F71BE27E93C8300732190 /* Currency.swift in Sources */,
+				B57F71D527EB757400732190 /* CurrencyPickerPresenter.swift in Sources */,
+				B57F71CE27EB6E4500732190 /* OptionsRouter.swift in Sources */,
+				B57F71CA27EB691A00732190 /* OptionsViewController.swift in Sources */,
+				B57F71C727EB68CD00732190 /* FavoritesRouter.swift in Sources */,
+				B57F71D327EB754D00732190 /* CurrencyPickerInteractor.swift in Sources */,
+				B57F71CC27EB6E2200732190 /* OptionsPresenter.swift in Sources */,
 				B57F71B727E93BFA00732190 /* NetworkClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
