@@ -21,6 +21,7 @@ final class FavoritesViewController: UIViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
+        tableView.isHidden = true
         return tableView
     }()
     
@@ -33,6 +34,8 @@ final class FavoritesViewController: UIViewController {
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
+        view.backgroundColor = .white
+        
         setupNavigationBar()
         setupTableView()
         
@@ -86,16 +89,18 @@ extension FavoritesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ??
         UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
         
-        if indexPath.row == 0 {
-            if let baseCurrency = baseCurrency {
-                cell.textLabel?.text = "Based Currency: \(baseCurrency.currencyName) \(baseCurrency.currencyCode)"
-            }
-        } else {
-            cell.textLabel?.text = favoriteList[indexPath.row - 1].currencyCode
-            cell.detailTextLabel?.text = "0.90"
-        }
+        cell.textLabel?.text = favoriteList[indexPath.row].currencyCode
+        cell.detailTextLabel?.text = "0.90"
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        if let baseCurrency = baseCurrency {
+            return "Based Currency: \(baseCurrency.currencyName) \(baseCurrency.currencyCode)"
+        }
+        return ""
     }
     
 }
