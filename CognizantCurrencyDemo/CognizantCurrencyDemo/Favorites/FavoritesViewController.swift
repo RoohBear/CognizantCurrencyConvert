@@ -39,6 +39,8 @@ final class FavoritesViewController: UIViewController {
         setupNavigationBar()
         setupTableView()
         
+        handleFavoriteListPublisher(options: presenter.getOptions())
+        
         presenter.favoriteListPublisher.receive(on: DispatchQueue.main).sink { [weak self] in
             self?.handleFavoriteListPublisher(options: $0)
         }.store(in: &subscriptions)
@@ -61,6 +63,7 @@ final class FavoritesViewController: UIViewController {
     private func handleFavoriteListPublisher(options: Options) {
         
         guard !options.favorites.isEmpty else {
+            self.tableView.isHidden = true
             return
         }
         

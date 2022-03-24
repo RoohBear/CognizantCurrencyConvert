@@ -10,6 +10,7 @@ import Combine
 
 protocol FavoritesPresenterProtocol {
     func showOptionMenu()
+    func getOptions() -> Options
     var favoriteListPublisher: AnyPublisher<Options, Never> { get }
 }
 
@@ -22,7 +23,7 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
     private lazy var favoriteListSubject = PassthroughSubject<Options?, Never>()
     
     var favoriteListPublisher: AnyPublisher<Options, Never> {
-        return interactor.getOptionsData()
+        return interactor.getOptionsPublisher()
     }
     
     init(router: FavoritesRouterProtocol, interactor: FavoriteInteractorProtocol = FavoriteInteractor()) {
@@ -34,5 +35,8 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
         router.routeToOptions()
     }
     
+    func getOptions() -> Options {
+        interactor.getOptions()
+    }
     
 }

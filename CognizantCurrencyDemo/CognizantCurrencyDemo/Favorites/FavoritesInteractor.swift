@@ -9,7 +9,8 @@ import Foundation
 import Combine
 
 protocol FavoriteInteractorProtocol {
-    func getOptionsData() -> AnyPublisher<Options, Never>
+    func getOptionsPublisher() -> AnyPublisher<Options, Never>
+    func getOptions() -> Options
 }
 
 final class FavoriteInteractor: FavoriteInteractorProtocol {
@@ -30,7 +31,11 @@ final class FavoriteInteractor: FavoriteInteractorProtocol {
         currencyScoopService.convertCurrency(from: from, to: to, amount: amount)
     }
     
-    func getOptionsData() -> AnyPublisher<Options, Never> {
+    func getOptionsPublisher() -> AnyPublisher<Options, Never> {
          repository.optionsPublisher
+    }
+    
+    func getOptions() -> Options {
+        repository.options
     }
 }
