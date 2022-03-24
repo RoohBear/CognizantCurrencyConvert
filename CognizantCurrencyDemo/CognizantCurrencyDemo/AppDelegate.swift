@@ -4,6 +4,7 @@
 //
 //  Created by Greg Wishart on 2022-03-21.
 //
+// Write Access check
 
 import UIKit
 
