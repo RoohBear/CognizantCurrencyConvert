@@ -8,7 +8,7 @@
 import Foundation
 
 protocol FavoritesPresenterProtocol {
-    func handleTap()
+    func showOptionMenu()
 }
 
 class FavoritesPresenter: FavoritesPresenterProtocol {
@@ -19,7 +19,7 @@ class FavoritesPresenter: FavoritesPresenterProtocol {
         self.router = router
     }
 
-    func handleTap() {
+    func showOptionMenu() {
         router.routeToOptions()
     }
 }
