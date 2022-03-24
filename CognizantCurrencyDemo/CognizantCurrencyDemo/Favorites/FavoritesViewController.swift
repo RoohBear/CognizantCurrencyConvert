@@ -13,7 +13,7 @@ final class FavoritesViewController: UIViewController {
     private let favorites = "Favorites"
     private var cellIdentifier: String { "cellIdentifier" }
     private var presenter: FavoritesPresenterProtocol!
-    private var subscriptions = Set<AnyCancellable>()
+    private lazy var subscriptions = Set<AnyCancellable>()
     private var favoriteList: [Currency] = []
     private var baseCurrency: Currency?
     
@@ -75,8 +75,6 @@ final class FavoritesViewController: UIViewController {
 }
 
 // MARK: - UITableView Data Source
-
-// TODO: Need to replace placeholder data with real data.
 
 extension FavoritesViewController: UITableViewDataSource {
     
