@@ -16,7 +16,6 @@ final class FavoritesViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self
         tableView.dataSource = self
         return tableView
     }()
@@ -54,11 +53,11 @@ final class FavoritesViewController: UIViewController {
     }
 }
 
-// MARK: - UITableView Data Source and Delegate
+// MARK: - UITableView Data Source
 
 // TODO: Need to replace placeholder data with real data.
 
-extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource {
+extension FavoritesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
