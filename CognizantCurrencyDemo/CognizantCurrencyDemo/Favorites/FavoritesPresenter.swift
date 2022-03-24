@@ -6,20 +6,33 @@
 //
 
 import Foundation
+import Combine
 
 protocol FavoritesPresenterProtocol {
     func showOptionMenu()
+    var favoriteListPublisher: AnyPublisher<Options, Never> { get }
 }
 
-class FavoritesPresenter: FavoritesPresenterProtocol {
-
+final class FavoritesPresenter: FavoritesPresenterProtocol {
+    
     private let router: FavoritesRouterProtocol
-
-    init(router: FavoritesRouterProtocol) {
-        self.router = router
+    private let interactor: FavoriteInteractorProtocol
+    private var getFavoriteListSubscription: AnyCancellable?
+    
+    private lazy var favoriteListSubject = PassthroughSubject<Options?, Never>()
+    
+    var favoriteListPublisher: AnyPublisher<Options, Never> {
+        return interactor.getOptionsData()
     }
-
+    
+    init(router: FavoritesRouterProtocol, interactor: FavoriteInteractorProtocol = FavoriteInteractor()) {
+        self.router = router
+        self.interactor = interactor
+    }
+    
     func showOptionMenu() {
         router.routeToOptions()
     }
+    
+    
 }

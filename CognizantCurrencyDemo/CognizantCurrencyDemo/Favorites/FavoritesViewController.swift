@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import Combine
 
 final class FavoritesViewController: UIViewController {
     
     private let favorites = "Favorites"
     private var cellIdentifier: String { "cellIdentifier" }
     private var presenter: FavoritesPresenterProtocol!
+    private var subscriptions = Set<AnyCancellable>()
+    private var favoriteList: [Currency] = []
+    private var baseCurrency: Currency?
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -31,7 +35,12 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         setupNavigationBar()
         setupTableView()
+        
+        presenter.favoriteListPublisher.receive(on: DispatchQueue.main).sink { [weak self] in
+            self?.handleFavoriteListPublisher(options: $0)
+        }.store(in: &subscriptions)
     }
+    
     
     // MARK: - Helper Methods
     
@@ -44,6 +53,18 @@ final class FavoritesViewController: UIViewController {
         navigationItem.title = favorites
         navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .refresh)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(openOptionMenu))
+    }
+    
+    private func handleFavoriteListPublisher(options: Options) {
+        
+        guard !options.favorites.isEmpty else {
+            return
+        }
+        
+        favoriteList = options.favorites
+        baseCurrency = options.baseCurrency
+        tableView.reloadData()
+        tableView.isHidden = false
     }
     
     // MARK: - Action Methods
@@ -60,7 +81,7 @@ final class FavoritesViewController: UIViewController {
 extension FavoritesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return favoriteList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,9 +89,11 @@ extension FavoritesViewController: UITableViewDataSource {
         UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
         
         if indexPath.row == 0 {
-            cell.textLabel?.text = "Based Currency: USD"
+            if let baseCurrency = baseCurrency {
+                cell.textLabel?.text = "Based Currency: \(baseCurrency.currencyName) \(baseCurrency.currencyCode)"
+            }
         } else {
-            cell.textLabel?.text = "USD"
+            cell.textLabel?.text = favoriteList[indexPath.row - 1].currencyCode
             cell.detailTextLabel?.text = "0.90"
         }
         
