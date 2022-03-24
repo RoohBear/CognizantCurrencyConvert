@@ -12,7 +12,6 @@ final class FavoritesViewController: UIViewController {
     private let favorites = "Favorites"
     private var cellIdentifier: String { "cellIdentifier" }
     private var presenter: FavoritesPresenterProtocol!
-    private var favoriteList: [Currency] = []
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -81,8 +80,12 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ??
         UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
         
-        cell.textLabel?.text = "USD"
-        cell.detailTextLabel?.text = "0.90"
+        if indexPath.row == 0 {
+            cell.textLabel?.text = "Based Currency: USD"
+        } else {
+            cell.textLabel?.text = "USD"
+            cell.detailTextLabel?.text = "0.90"
+        }
         
         return cell
     }
