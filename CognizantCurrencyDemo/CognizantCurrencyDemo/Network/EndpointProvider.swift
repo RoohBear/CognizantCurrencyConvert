@@ -18,7 +18,16 @@ class EndpointProvider {
             queryItems: [URLQueryItem(name: "type", value: "fiat")]
         )
     }
-
+    
+    static func convertCurrencyEndpoint(from: String, to: String, amount: String) -> URL {
+        endpoint(
+            with: "convert",
+            queryItems: [URLQueryItem(name: "from", value: from)
+                        ,URLQueryItem(name: "to", value: to)
+                        ,URLQueryItem(name: "amount", value: amount)]
+        )
+    }
+    
     /// private helper function for building URLs for CurrencyScoop.com
     /// - Parameters:
     ///   - path: the API name
