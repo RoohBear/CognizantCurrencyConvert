@@ -35,6 +35,7 @@
 		B57F71D927ECBDEF00732190 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71D827ECBDEF00732190 /* Options.swift */; };
 		B57F71DB27ECBE0C00732190 /* OptionsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71DA27ECBE0C00732190 /* OptionsRepository.swift */; };
 		B57F71DD27ECBE4400732190 /* OptionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71DC27ECBE4400732190 /* OptionsInteractor.swift */; };
+		B57F71DF27ECD5BA00732190 /* OptionsRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71DE27ECD5BA00732190 /* OptionsRepositoryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		B57F71D827ECBDEF00732190 /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		B57F71DA27ECBE0C00732190 /* OptionsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsRepository.swift; sourceTree = "<group>"; };
 		B57F71DC27ECBE4400732190 /* OptionsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsInteractor.swift; sourceTree = "<group>"; };
+		B57F71DE27ECD5BA00732190 /* OptionsRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsRepositoryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 		27F6DEBD27E8DD0300CCDD2D /* CognizantCurrencyDemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				B57F71DE27ECD5BA00732190 /* OptionsRepositoryTests.swift */,
 				B57F71D627EBC5AB00732190 /* OptionsInteractorTests.swift */,
 				B57F71B327E9330800732190 /* CurrencyScoopServiceTests.swift */,
 				27F6DEBE27E8DD0300CCDD2D /* CognizantCurrencyDemoTests.swift */,
@@ -384,6 +387,7 @@
 			files = (
 				27F6DEBF27E8DD0300CCDD2D /* CognizantCurrencyDemoTests.swift in Sources */,
 				B57F71B427E9330800732190 /* CurrencyScoopServiceTests.swift in Sources */,
+				B57F71DF27ECD5BA00732190 /* OptionsRepositoryTests.swift in Sources */,
 				B57F71D727EBC5AB00732190 /* OptionsInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
