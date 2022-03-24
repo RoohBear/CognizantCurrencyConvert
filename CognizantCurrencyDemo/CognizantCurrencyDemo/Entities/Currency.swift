@@ -10,6 +10,10 @@ import Foundation
 struct Currency: Codable, Equatable {
     let currencyCode: String
     let currencyName: String
+
+    static var defaultCurrency: Currency {
+        Currency(currencyCode: "USD", currencyName: "United States dollar")
+    }
 }
 
 struct FiatCurrencies: Codable {
