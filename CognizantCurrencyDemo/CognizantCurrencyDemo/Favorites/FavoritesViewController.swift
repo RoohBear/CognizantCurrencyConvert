@@ -38,25 +38,13 @@ final class FavoritesViewController: UIViewController {
     
     private func setupTableView() {
         view.addSubview(tableView)
-        activateConstraints()
+        tableView.activateConstraints()
     }
     
     private func setupNavigationBar() {
         navigationItem.title = favorites
         navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .refresh)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(openOptionMenu))
-    }
-    
-    private func activateConstraints() {
-        NSLayoutConstraint.activate(
-            [
-                tableView.topAnchor.constraint(equalTo: view.topAnchor),
-                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
-                
-            ]
-        )
     }
     
     // MARK: - Action Methods

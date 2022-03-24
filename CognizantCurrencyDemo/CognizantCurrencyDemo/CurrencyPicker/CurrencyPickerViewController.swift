@@ -61,21 +61,9 @@ class CurrencyPickerViewController: UIViewController {
     }
 
     private func activateConstraints() {
-        NSLayoutConstraint.activate(
-            [
-                tableView.topAnchor.constraint(equalTo: view.topAnchor),
-                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-
-                activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-
-                errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                errorLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
-            ]
-        )
+        tableView.activateConstraints()
+        activityIndicator.activateConstraints()
+        errorLabel.activateConstraints()
     }
 
     private func handleCurrencyListPublisher(currencies: [Currency]?) {
