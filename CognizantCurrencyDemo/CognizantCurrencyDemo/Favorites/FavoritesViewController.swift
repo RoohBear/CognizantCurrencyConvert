@@ -15,6 +15,8 @@ final class FavoritesViewController: UIViewController {
     private var presenter: FavoritesPresenterProtocol!
     private lazy var subscriptions = Set<AnyCancellable>()
     private var favoriteList: [Currency] = []
+    private var currencyRates: CurrencyRates?
+    
     private var baseCurrency: Currency?
     
     private lazy var tableView: UITableView = {
@@ -61,16 +63,20 @@ final class FavoritesViewController: UIViewController {
     }
     
     private func handleFavoriteListPublisher(options: Options) {
-        
         guard !options.favorites.isEmpty else {
             self.tableView.isHidden = true
             return
         }
         
-        favoriteList = options.favorites
-        baseCurrency = options.baseCurrency
-        tableView.reloadData()
-        tableView.isHidden = false
+        presenter.currencyRatesPublisher(options: options).receive(on: DispatchQueue.main).sink { [weak self] response in
+            
+            self?.favoriteList = options.favorites
+            self?.baseCurrency = options.baseCurrency
+            self?.tableView.reloadData()
+            self?.tableView.isHidden = false
+            self?.currencyRates = response
+            
+        }.store(in: &subscriptions)
     }
     
     // MARK: - Action Methods
@@ -92,8 +98,13 @@ extension FavoritesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ??
         UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
         
-        cell.textLabel?.text = favoriteList[indexPath.row].currencyCode
-        cell.detailTextLabel?.text = "0.90"
+        let currencyCode = favoriteList[indexPath.row].currencyCode
+        
+        cell.textLabel?.text = currencyCode
+        
+        if let currencyRate = currencyRates?.rates[currencyCode] {
+            cell.detailTextLabel?.text = String(currencyRate)
+        }
         
         return cell
     }

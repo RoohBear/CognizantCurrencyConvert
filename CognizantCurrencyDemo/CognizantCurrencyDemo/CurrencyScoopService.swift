@@ -11,10 +11,12 @@ import Combine
 protocol CurrencyScoopServiceProtocol {
     func getCurrencies() -> AnyPublisher<[Currency]?, Never>
     func convertCurrency(from: String, to: String, amount: String) -> AnyPublisher<ConvertData?, Never>
+    func getCurrencyRates(base: String, latest:[String])  -> AnyPublisher<CurrencyRates?, Never>
 }
 
 extension CurrencyScoopServiceProtocol {
     func convertCurrency(from: String, to: String, amount: String){}
+    func getCurrencyRates(base: String, latest:[String]) {}
 }
 
 class CurrencyScoopService: CurrencyScoopServiceProtocol {

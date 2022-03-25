@@ -11,6 +11,7 @@ import Combine
 protocol FavoriteInteractorProtocol {
     func getOptionsPublisher() -> AnyPublisher<Options, Never>
     func getOptions() -> Options
+    func getCurrencyRates(options: Options) -> AnyPublisher<CurrencyRates?, Never>
 }
 
 final class FavoriteInteractor: FavoriteInteractorProtocol {
@@ -25,17 +26,22 @@ final class FavoriteInteractor: FavoriteInteractorProtocol {
         self.currencyScoopService = currencyScoopService
         self.repository = repository
     }
-    
-    
-    func convertCurrency(from: String, to: String, amount: String) -> AnyPublisher<ConvertData?, Never> {
-        currencyScoopService.convertCurrency(from: from, to: to, amount: amount)
-    }
-    
+  
     func getOptionsPublisher() -> AnyPublisher<Options, Never> {
          repository.optionsPublisher
     }
     
     func getOptions() -> Options {
         repository.options
+    }
+    
+    func getCurrencyRates(options: Options) -> AnyPublisher<CurrencyRates?, Never>  {
+        var currencyCodeArray = [String]()
+        
+        for currency in options.favorites {
+            currencyCodeArray.append(currency.currencyCode)
+        }
+        
+        return currencyScoopService.getCurrencyRates(base: options.baseCurrency.currencyCode, latest: currencyCodeArray).eraseToAnyPublisher()
     }
 }

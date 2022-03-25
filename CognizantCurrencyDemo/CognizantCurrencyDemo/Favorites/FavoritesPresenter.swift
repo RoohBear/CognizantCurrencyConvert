@@ -12,6 +12,7 @@ protocol FavoritesPresenterProtocol {
     func showOptionMenu()
     func getOptions() -> Options
     var favoriteListPublisher: AnyPublisher<Options, Never> { get }
+    func currencyRatesPublisher(options: Options) -> AnyPublisher<CurrencyRates?, Never>
 }
 
 final class FavoritesPresenter: FavoritesPresenterProtocol {
@@ -21,6 +22,10 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
     
     var favoriteListPublisher: AnyPublisher<Options, Never> {
         return interactor.getOptionsPublisher()
+    }
+    
+    func currencyRatesPublisher(options: Options) -> AnyPublisher<CurrencyRates?, Never>  {
+        interactor.getCurrencyRates(options: options)
     }
     
     init(router: FavoritesRouterProtocol, interactor: FavoriteInteractorProtocol = FavoriteInteractor()) {
