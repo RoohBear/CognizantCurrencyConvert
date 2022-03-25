@@ -35,6 +35,15 @@ class CurrencyScoopService: CurrencyScoopServiceProtocol {
         }.eraseToAnyPublisher()                         // causes the output to be an AnyPublisher
     }
     
+    /// Provides real-time rates of all currencies and returns data model`ConvertData
+    func getCurrencyRates(base: String, latest:[String]) -> AnyPublisher<CurrencyRates?, Never> {
+        networkClient.getData(
+            from: EndpointProvider.latestEndpoint(base: base, latest: latest),
+            type: CurrencyRatesResponse.self
+        ).map {
+            $0?.response
+        }.eraseToAnyPublisher() // causes the output to be an AnyPublisher
+    }
     /// converts one currency to another and returns a publisher data model`ConvertData
     func convertCurrency(from: String, to: String, amount: String) -> AnyPublisher<ConvertData?, Never> {
         networkClient.getData(

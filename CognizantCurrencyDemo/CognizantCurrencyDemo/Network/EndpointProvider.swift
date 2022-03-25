@@ -19,6 +19,16 @@ class EndpointProvider {
         )
     }
     
+    static func latestEndpoint(base: String, latest: [String]) -> URL {
+        let latestString = latest.joined(separator:",")
+        
+       return endpoint(
+            with: "latest",
+            queryItems:   [URLQueryItem(name: "base", value: base)
+                         ,URLQueryItem(name: "symbols", value: latestString)]
+        )
+    }
+    
     static func convertCurrencyEndpoint(from: String, to: String, amount: String) -> URL {
         endpoint(
             with: "convert",
