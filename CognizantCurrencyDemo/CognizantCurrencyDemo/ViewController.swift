@@ -29,6 +29,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableFrom.selectRow(at: IndexPath(item:0, section:0), animated:false, scrollPosition:.top)
         tableTo.selectRow(at: IndexPath(item:0, section:0), animated:false, scrollPosition:.top)
         textfieldConvertFrom.text = "0.0"
+        textfieldConvertFrom.addTarget(self, action:#selector(textfieldChanged), for:.editingChanged)
+        self.doConversion()
+    }
+
+    /// Called when user changes text in textfieldConvertFrom
+    @objc func textfieldChanged()
+    {
         self.doConversion()
     }
 
