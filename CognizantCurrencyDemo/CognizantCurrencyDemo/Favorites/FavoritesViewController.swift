@@ -12,8 +12,10 @@ final class FavoritesViewController: UIViewController {
     
     private let favorites = "Favorites"
     private var cellIdentifier: String { "cellIdentifier" }
+    
     private var presenter: FavoritesPresenterProtocol!
     private lazy var subscriptions = Set<AnyCancellable>()
+    
     private var favoriteList: [Currency] = []
     private var currencyRates: CurrencyRates?
     
@@ -39,12 +41,11 @@ final class FavoritesViewController: UIViewController {
         view.backgroundColor = .white
         
         setupNavigationBar()
-        setupTableView()
         
-        handleFavoriteListPublisher(options: presenter.getOptions())
+        handleCurrencyRateListPublisher(options: presenter.getOptions())
         
         presenter.favoriteListPublisher.receive(on: DispatchQueue.main).sink { [weak self] in
-            self?.handleFavoriteListPublisher(options: $0)
+            self?.handleCurrencyRateListPublisher(options: $0)
         }.store(in: &subscriptions)
     }
     
@@ -54,30 +55,37 @@ final class FavoritesViewController: UIViewController {
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.activateConstraints()
+        self.tableView.reloadData()
+        self.tableView.isHidden = false
     }
     
     private func setupNavigationBar() {
         navigationItem.title = favorites
-        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .refresh)
+        navigationItem.leftBarButtonItem =  UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(openOptionMenu))
     }
     
-    private func handleFavoriteListPublisher(options: Options) {
-        guard !options.favorites.isEmpty else {
+    @objc private func refreshButtonTapped() {
+        handleCurrencyRateListPublisher(options: presenter.getOptions())
+    }
+    
+    private func handleCurrencyRateListPublisher(options: Options?) {
+        guard let options = options, !options.favorites.isEmpty else {
             self.tableView.isHidden = true
             return
         }
         
+        self.favoriteList = options.favorites
+        self.baseCurrency = options.baseCurrency
+        
         presenter.currencyRatesPublisher(options: options).receive(on: DispatchQueue.main).sink { [weak self] response in
             
-            self?.favoriteList = options.favorites
-            self?.baseCurrency = options.baseCurrency
-            self?.tableView.reloadData()
-            self?.tableView.isHidden = false
             self?.currencyRates = response
+            self?.setupTableView()
             
         }.store(in: &subscriptions)
     }
+    
     
     // MARK: - Action Methods
     
@@ -114,7 +122,7 @@ extension FavoritesViewController: UITableViewDataSource {
         if let baseCurrency = baseCurrency {
             return "Based Currency: \(baseCurrency.currencyName) \(baseCurrency.currencyCode)"
         }
-        return ""
+        return "Error: Could not display currency name."
     }
     
 }
