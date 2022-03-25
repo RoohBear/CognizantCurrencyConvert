@@ -18,9 +18,6 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
     
     private let router: FavoritesRouterProtocol
     private let interactor: FavoriteInteractorProtocol
-    private var getFavoriteListSubscription: AnyCancellable?
-    
-    private lazy var favoriteListSubject = PassthroughSubject<Options?, Never>()
     
     var favoriteListPublisher: AnyPublisher<Options, Never> {
         return interactor.getOptionsPublisher()
