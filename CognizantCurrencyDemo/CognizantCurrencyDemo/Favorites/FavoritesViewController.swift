@@ -34,7 +34,7 @@ final class FavoritesViewController: UIViewController {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
-
+    
     private lazy var errorLabel: UILabel = {
         let errorLabel = UILabel()
         errorLabel.isHidden = true
@@ -59,10 +59,10 @@ final class FavoritesViewController: UIViewController {
         setupTableView()
         setupAlertView()
         
-        handleCurrencyRateListPublisher(options: presenter.getOptions())
+        handleCurrencyRateListPublisher(options: presenter.getOptions(), refreshRatesOnly: false)
         
         presenter.favoriteListPublisher.receive(on: DispatchQueue.main).sink { [weak self] in
-            self?.handleCurrencyRateListPublisher(options: $0)
+            self?.handleCurrencyRateListPublisher(options: $0, refreshRatesOnly: false)
         }.store(in: &subscriptions)
     }
     
@@ -86,18 +86,20 @@ final class FavoritesViewController: UIViewController {
     }
     
     @objc private func refreshButtonTapped() {
-        handleCurrencyRateListPublisher(options: presenter.getOptions())
+        handleCurrencyRateListPublisher(options: presenter.getOptions(), refreshRatesOnly: true)
     }
     
-    private func handleCurrencyRateListPublisher(options: Options?) {
+    private func handleCurrencyRateListPublisher(options: Options?, refreshRatesOnly: Bool) {
         guard let options = options, !options.favorites.isEmpty else {
             self.tableView.isHidden = true
             self.errorLabel.isHidden = false
             return
         }
         
-        self.favoriteList = options.favorites
-        self.baseCurrency = options.baseCurrency
+        if !refreshRatesOnly {
+            self.favoriteList = options.favorites
+            self.baseCurrency = options.baseCurrency
+        }
         
         presenter.currencyRatesPublisher(options: options).receive(on: DispatchQueue.main).sink { [weak self] response in
             
@@ -133,7 +135,7 @@ extension FavoritesViewController: UITableViewDataSource {
         
         cell.textLabel?.text = currencyCode
         
-        if let currencyRate = currencyRates?.rates[currencyCode] {
+        if let currencyRate = currencyRates?.rates[currencyCode] as? Double {
             cell.detailTextLabel?.text = String(currencyRate)
         }
         

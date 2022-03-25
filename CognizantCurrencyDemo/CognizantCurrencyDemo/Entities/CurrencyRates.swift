@@ -13,5 +13,5 @@ struct CurrencyRatesResponse: Codable {
 
 struct CurrencyRates: Codable {
     let base: String
-    let rates: [String: Double]
+    let rates: [String: Double?]
 }
