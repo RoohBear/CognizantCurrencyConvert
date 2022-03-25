@@ -10,6 +10,13 @@ import Combine
 
 protocol CurrencyScoopServiceProtocol {
     func getCurrencies() -> AnyPublisher<[Currency]?, Never>
+    func convertCurrency(from: String, to: String, amount: String) -> AnyPublisher<ConvertData?, Never>
+    func getCurrencyRates(base: String, latest:[String])  -> AnyPublisher<CurrencyRates?, Never>
+}
+
+extension CurrencyScoopServiceProtocol {
+    func convertCurrency(from: String, to: String, amount: String){}
+    func getCurrencyRates(base: String, latest:[String]) {}
 }
 
 class CurrencyScoopService: CurrencyScoopServiceProtocol {
@@ -28,6 +35,25 @@ class CurrencyScoopService: CurrencyScoopServiceProtocol {
         ).map {
             $0?.currencies
         }.eraseToAnyPublisher()                         // causes the output to be an AnyPublisher
+    }
+    
+    /// Provides real-time rates of all currencies and returns data model`ConvertData
+    func getCurrencyRates(base: String, latest:[String]) -> AnyPublisher<CurrencyRates?, Never> {
+        networkClient.getData(
+            from: EndpointProvider.latestEndpoint(base: base, latest: latest),
+            type: CurrencyRatesResponse.self
+        ).map {
+            $0?.response
+        }.eraseToAnyPublisher() // causes the output to be an AnyPublisher
+    }
+    /// converts one currency to another and returns a publisher data model`ConvertData
+    func convertCurrency(from: String, to: String, amount: String) -> AnyPublisher<ConvertData?, Never> {
+        networkClient.getData(
+            from: EndpointProvider.convertCurrencyEndpoint(from: from, to: to, amount: amount),
+            type: ConvertDataResponse.self
+        ).map {
+            $0?.response
+        }.eraseToAnyPublisher() // causes the output to be an AnyPublisher
     }
 }
 
