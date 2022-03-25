@@ -61,7 +61,7 @@ class CurrencyPickerPresenter: CurrencyPickerPresenterProtocol {
 
     private func getCurriencesForDisplay(_ currencies: [Currency]?) -> [Currency]? {
         var currencies = currencies
-        currencies?.sort { $0.currencyName < $1.currencyName }
+        currencies?.sort()
         if let selectedCurrency = currencies?.first(
             where: { $0.currencyCode == selectedCurrencyCode }
         ) {
