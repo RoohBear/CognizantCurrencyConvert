@@ -29,6 +29,21 @@ final class FavoritesViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
+    }()
+
+    private lazy var errorLabel: UILabel = {
+        let errorLabel = UILabel()
+        errorLabel.isHidden = true
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.text = "Sorry, there was a problem loading your favorites list."
+        errorLabel.numberOfLines = 0
+        errorLabel.textAlignment = .center
+        return errorLabel
+    }()
     
     convenience init(presenter: FavoritesPresenterProtocol) {
         self.init()
@@ -41,6 +56,8 @@ final class FavoritesViewController: UIViewController {
         view.backgroundColor = .white
         
         setupNavigationBar()
+        setupTableView()
+        setupAlertView()
         
         handleCurrencyRateListPublisher(options: presenter.getOptions())
         
@@ -52,11 +69,14 @@ final class FavoritesViewController: UIViewController {
     
     // MARK: - Helper Methods
     
+    private func setupAlertView() {
+        view.addSubview(errorLabel)
+        errorLabel.activateConstraints()
+    }
+    
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.activateConstraints()
-        self.tableView.reloadData()
-        self.tableView.isHidden = false
     }
     
     private func setupNavigationBar() {
@@ -72,6 +92,7 @@ final class FavoritesViewController: UIViewController {
     private func handleCurrencyRateListPublisher(options: Options?) {
         guard let options = options, !options.favorites.isEmpty else {
             self.tableView.isHidden = true
+            self.errorLabel.isHidden = false
             return
         }
         
@@ -80,8 +101,10 @@ final class FavoritesViewController: UIViewController {
         
         presenter.currencyRatesPublisher(options: options).receive(on: DispatchQueue.main).sink { [weak self] response in
             
+            self?.errorLabel.isHidden = true
+            self?.tableView.isHidden = false
             self?.currencyRates = response
-            self?.setupTableView()
+            self?.tableView.reloadData()
             
         }.store(in: &subscriptions)
     }
