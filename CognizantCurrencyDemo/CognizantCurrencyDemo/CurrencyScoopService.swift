@@ -20,13 +20,12 @@ extension CurrencyScoopServiceProtocol {
 }
 
 class CurrencyScoopService: CurrencyScoopServiceProtocol {
-
     private let networkClient: NetworkClientProtocol
-
+    
     init(networkClient: NetworkClientProtocol = NetworkClient()) {
         self.networkClient = networkClient
     }
-
+    
     /// downloads the currencies and returns a publisher of an array of `Currency` objects that never fails
     func getCurrencies() -> AnyPublisher<[Currency]?, Never> {
         networkClient.getData(
@@ -46,6 +45,7 @@ class CurrencyScoopService: CurrencyScoopServiceProtocol {
             $0?.response
         }.eraseToAnyPublisher() // causes the output to be an AnyPublisher
     }
+    
     /// converts one currency to another and returns a publisher data model`ConvertData
     func convertCurrency(from: String, to: String, amount: String) -> AnyPublisher<ConvertData?, Never> {
         networkClient.getData(
@@ -53,7 +53,7 @@ class CurrencyScoopService: CurrencyScoopServiceProtocol {
             type: ConvertDataResponse.self
         ).map {
             $0?.response
-        }.eraseToAnyPublisher() // causes the output to be an AnyPublisher
+        }.receive(on: RunLoop.main).eraseToAnyPublisher() // causes the output to be an AnyPublisher
     }
 }
 
