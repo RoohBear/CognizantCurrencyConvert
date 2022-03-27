@@ -8,16 +8,15 @@
 import Foundation
 import Combine
 
-/// Type responsible for receiving an input, perform an operation using that input
-/// and comunicating the output of that operation.
+/// Type responsible for receiving an input, perform an operation using that input and comunicating the output of that operation.
 protocol CurrencyConverterInteractorProtocol {
-    func currencyList() -> AnyPublisher<[Currency]?, Never>
+    func currencyList() -> AnyPublisher<[Currency], Never>
     func convertionRate(for currency: String,
                         from baseCurrency: String,
-                        amount: Double) -> AnyPublisher<ConvertData?, Never>
+                        amount: String) -> AnyPublisher<ConvertData?, Never>
 }
 
-/// Type responsible to ontain the currency conversion related values.
+/// Type responsible to obtain the currency conversion related values.
 class CurrencyConverterInteractor: CurrencyConverterInteractorProtocol {
     private let currencyScoopService: CurrencyScoopServiceProtocol
     
@@ -25,15 +24,19 @@ class CurrencyConverterInteractor: CurrencyConverterInteractorProtocol {
         self.currencyScoopService = service
     }
     
-    func currencyList() -> AnyPublisher<[Currency]?, Never> {
+    func currencyList() -> AnyPublisher<[Currency], Never> {
         currencyScoopService.getCurrencies()
+            .receive(on: RunLoop.main)
+            .replaceNil(with: [Currency.defaultCurrency])
+            .eraseToAnyPublisher()
     }
     
     func convertionRate(for currency: String,
                         from baseCurrency: String,
-                        amount: Double = 1) -> AnyPublisher<ConvertData?, Never> {
+                        amount: String) -> AnyPublisher<ConvertData?, Never> {
         currencyScoopService.convertCurrency(from: currency,
-                                                    to: baseCurrency,
-                                                    amount: String(amount))
+                                             to: baseCurrency,
+                                             amount: amount)
+        
     }
 }
