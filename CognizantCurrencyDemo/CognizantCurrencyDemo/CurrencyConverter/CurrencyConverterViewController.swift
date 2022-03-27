@@ -1,14 +1,14 @@
 //
-//  ViewController.swift
+//  CurrencyConverterViewController.swift
 //  CognizantCurrencyDemo
 //
 //  Created by Greg Wishart on 2022-03-21.
 //
 
 import UIKit
+import Combine
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
-{
+class CurrencyConverterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableFrom:UITableView!
     @IBOutlet weak var tableTo:UITableView!
     @IBOutlet weak var textfieldConvertFrom:UITextField!

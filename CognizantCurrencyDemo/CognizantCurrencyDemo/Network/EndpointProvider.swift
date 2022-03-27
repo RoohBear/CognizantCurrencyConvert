@@ -29,6 +29,12 @@ class EndpointProvider {
         )
     }
     
+    /// Returns the currency conversion URL from the currecy, base currency and amounts provided as parameter
+    /// - Parameters:
+    ///   - from: String represents the currency for getting the conversion rate
+    ///   - to: String represents the base currency from which the currency value calculated
+    ///   - amount: Double represents the amount
+    /// - Returns: URL for the API with the required parameters
     static func convertCurrencyEndpoint(from: String, to: String, amount: String) -> URL {
         endpoint(
             with: "convert",
@@ -37,7 +43,7 @@ class EndpointProvider {
                         ,URLQueryItem(name: "amount", value: amount)]
         )
     }
-    
+
     /// private helper function for building URLs for CurrencyScoop.com
     /// - Parameters:
     ///   - path: the API name
