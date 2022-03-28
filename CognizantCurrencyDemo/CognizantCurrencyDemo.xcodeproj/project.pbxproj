@@ -24,6 +24,7 @@
 		601B1BF027F21BBF00D8A28B /* FavoritesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601B1BEE27F21BBF00D8A28B /* FavoritesPresenterTests.swift */; };
 		9BBDCD2627ED675100D1D342 /* CurrencyConverterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBDCD2527ED675100D1D342 /* CurrencyConverterInteractor.swift */; };
 		B5463E1027F1FBB000C2E875 /* FavoritesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5463E0F27F1FBB000C2E875 /* FavoritesUITests.swift */; };
+		B5463E1227F2605400C2E875 /* AnyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5463E1127F2605400C2E875 /* AnyPresenter.swift */; };
 		B57F71B427E9330800732190 /* CurrencyScoopServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71B327E9330800732190 /* CurrencyScoopServiceTests.swift */; };
 		B57F71B727E93BFA00732190 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71B627E93BFA00732190 /* NetworkClient.swift */; };
 		B57F71B927E93C1C00732190 /* EndpointProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71B827E93C1C00732190 /* EndpointProvider.swift */; };
@@ -86,6 +87,7 @@
 		601B1BEE27F21BBF00D8A28B /* FavoritesPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPresenterTests.swift; sourceTree = "<group>"; };
 		9BBDCD2527ED675100D1D342 /* CurrencyConverterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterInteractor.swift; sourceTree = "<group>"; };
 		B5463E0F27F1FBB000C2E875 /* FavoritesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesUITests.swift; sourceTree = "<group>"; };
+		B5463E1127F2605400C2E875 /* AnyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPresenter.swift; sourceTree = "<group>"; };
 		B57F71B327E9330800732190 /* CurrencyScoopServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyScoopServiceTests.swift; sourceTree = "<group>"; };
 		B57F71B627E93BFA00732190 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		B57F71B827E93C1C00732190 /* EndpointProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointProvider.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				27F6DEA927E8DD0100CCDD2D /* SceneDelegate.swift */,
 				B57F71BF27EB5F3900732190 /* TabBarController.swift */,
 				B57F71BA27E93C4F00732190 /* CurrencyScoopService.swift */,
+				B5463E1127F2605400C2E875 /* AnyPresenter.swift */,
 				9BBDCD2427ED4C6000D1D342 /* CurrencyConverter */,
 				B57F71CF27EB741900732190 /* CurrencyPicker */,
 				B57F71C127EB62CE00732190 /* Favorites */,
@@ -432,6 +435,7 @@
 				B57F71C727EB68CD00732190 /* FavoritesRouter.swift in Sources */,
 				B57F71D327EB754D00732190 /* CurrencyPickerInteractor.swift in Sources */,
 				B57F71CC27EB6E2200732190 /* OptionsPresenter.swift in Sources */,
+				B5463E1227F2605400C2E875 /* AnyPresenter.swift in Sources */,
 				B57F71B727E93BFA00732190 /* NetworkClient.swift in Sources */,
 				9BBDCD2627ED675100D1D342 /* CurrencyConverterInteractor.swift in Sources */,
 			);
