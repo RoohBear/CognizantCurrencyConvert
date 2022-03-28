@@ -46,9 +46,12 @@ class CurrencyScoopService: CurrencyScoopServiceProtocol {
         networkClient.getData(
             from: EndpointProvider.convertCurrencyEndpoint(from: from, to: to, amount: amount),
             type: ConvertDataResponse.self
-        ).map {
+        )
+        .map{
             $0?.response
-        }.receive(on: RunLoop.main).eraseToAnyPublisher() // causes the output to be an AnyPublisher
+        }
+        .receive(on: RunLoop.main)
+        .eraseToAnyPublisher() // causes the output to be an AnyPublisher
     }
 }
 
