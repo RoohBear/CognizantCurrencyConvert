@@ -11,7 +11,7 @@ struct CurrencyRatesResponse: Codable {
     let response: CurrencyRates
 }
 
-struct CurrencyRates: Codable {
+struct CurrencyRates: Codable, Equatable {
     let base: String
     let rates: [String: Double?]
 }
