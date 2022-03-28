@@ -23,6 +23,18 @@ class CurrencyScoopServiceTests: XCTestCase {
         service = nil
         clientMock = nil
     }
+    
+    func testGetCurrencyRateEndpoint() {
+        _ = service.getCurrencyRates(base: "USD", latest: ["GBP, JPY"])
+       
+        XCTAssertEqual(clientMock.lastEndpoint, EndpointProvider.latestEndpoint(base: "USD", latest: ["GBP, JPY"]))
+    }
+    
+    func testConvertCurrencyEndpoint() {
+        _ = service.convertCurrency(from: "USD", to: "JPY", amount: "3")
+       
+        XCTAssertEqual(clientMock.lastEndpoint, EndpointProvider.convertCurrencyEndpoint(from: "USD", to: "JPY", amount: "3"))
+    }
 
     func testGetCurrienciesEndpoint() {
         _ = service.getCurrencies()
