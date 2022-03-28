@@ -12,7 +12,7 @@ import Combine
 /// and comunicating the output of that operation.
 protocol CurrencyConverterInteractorProtocol {
     func currencyList() -> AnyPublisher<[Currency]?, Never>
-    func convertionRate(for currency: String,
+    func conversionRate(for currency: String,
                         from baseCurrency: String,
                         amount: Double) -> AnyPublisher<ConvertData?, Never>
 }
@@ -29,7 +29,7 @@ class CurrencyConverterInteractor: CurrencyConverterInteractorProtocol {
         currencyScoopService.getCurrencies()
     }
     
-    func convertionRate(for currency: String,
+    func conversionRate(for currency: String,
                         from baseCurrency: String,
                         amount: Double = 1) -> AnyPublisher<ConvertData?, Never> {
         currencyScoopService.convertCurrency(from: currency,
