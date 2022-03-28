@@ -156,6 +156,18 @@ class OptionsInteractorTests: XCTestCase {
 }
 
 fileprivate class MockService: CurrencyScoopServiceProtocol {
+   
+    var mockConvertData: ConvertData?
+  
+    func convertCurrency(from: String, to: String, amount: String) -> AnyPublisher<ConvertData?, Never> {
+        Just(mockConvertData).eraseToAnyPublisher()
+    }
+    
+    var mockCurrencyRates: CurrencyRates?
+    
+    func getCurrencyRates(base: String, latest: [String]) -> AnyPublisher<CurrencyRates?, Never> {
+        Just(mockCurrencyRates).eraseToAnyPublisher()
+    }
 
     var mockCurrencies: [Currency]?
 
