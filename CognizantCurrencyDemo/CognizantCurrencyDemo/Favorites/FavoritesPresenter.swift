@@ -20,17 +20,17 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
     private let router: FavoritesRouterProtocol
     private let interactor: FavoritesInteractorProtocol
     
+    init(router: FavoritesRouterProtocol, interactor: FavoritesInteractorProtocol = FavoritesInteractor()) {
+        self.router = router
+        self.interactor = interactor
+    }
+    
     var favoriteListPublisher: AnyPublisher<Options, Never> {
         return interactor.getOptionsPublisher()
     }
     
     func currencyRatesPublisher(options: Options) -> AnyPublisher<CurrencyRates?, Never>  {
         interactor.getCurrencyRates(options: options)
-    }
-    
-    init(router: FavoritesRouterProtocol, interactor: FavoritesInteractorProtocol = FavoritesInteractor()) {
-        self.router = router
-        self.interactor = interactor
     }
     
     func showOptionMenu() {

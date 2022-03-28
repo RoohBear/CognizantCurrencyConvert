@@ -39,7 +39,7 @@ class FavoritesInteractorTests: XCTestCase {
         XCTAssertEqual(interactor.getOptions(), mockRepository.options)
     }
     
-    func testGetCurrencyRate_WhenMethodReceives_ShouldReturnCurrencyRates()  {
+    func testGetCurrencyRate_WhenMethodReceivesOptions_ShouldReturnCurrencyRates()  {
         
         let mockCurrencyRates = CurrencyRates(base: "USD", rates: [ "GBP" : 1.459322 ])
         mockService.mockCurrencyRates = mockCurrencyRates
