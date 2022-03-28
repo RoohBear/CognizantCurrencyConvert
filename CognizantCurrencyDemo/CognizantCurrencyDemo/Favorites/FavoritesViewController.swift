@@ -39,7 +39,7 @@ final class FavoritesViewController: UIViewController {
         let errorLabel = UILabel()
         errorLabel.isHidden = true
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
-        errorLabel.text = "Sorry, there was a problem loading your favorites list."
+        errorLabel.text = "Sorry, there was a problem loading your favorites list. Please make sure that you have added your favorite currency inside the options menu."
         errorLabel.numberOfLines = 0
         errorLabel.textAlignment = .center
         return errorLabel
