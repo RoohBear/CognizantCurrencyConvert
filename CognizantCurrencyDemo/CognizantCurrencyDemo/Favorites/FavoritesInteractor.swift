@@ -8,13 +8,13 @@
 import Foundation
 import Combine
 
-protocol FavoriteInteractorProtocol {
+protocol FavoritesInteractorProtocol {
     func getOptionsPublisher() -> AnyPublisher<Options, Never>
     func getOptions() -> Options
     func getCurrencyRates(options: Options) -> AnyPublisher<CurrencyRates?, Never>
 }
 
-final class FavoriteInteractor: FavoriteInteractorProtocol {
+final class FavoritesInteractor: FavoritesInteractorProtocol {
     private let currencyScoopService: CurrencyScoopServiceProtocol
     private let repository: OptionsRepositoryProtocol
     private lazy var subscriptions = Set<AnyCancellable>()

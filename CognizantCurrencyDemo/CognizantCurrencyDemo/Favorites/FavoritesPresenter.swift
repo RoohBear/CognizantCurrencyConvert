@@ -18,7 +18,7 @@ protocol FavoritesPresenterProtocol {
 final class FavoritesPresenter: FavoritesPresenterProtocol {
     
     private let router: FavoritesRouterProtocol
-    private let interactor: FavoriteInteractorProtocol
+    private let interactor: FavoritesInteractorProtocol
     
     var favoriteListPublisher: AnyPublisher<Options, Never> {
         return interactor.getOptionsPublisher()
@@ -28,7 +28,7 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
         interactor.getCurrencyRates(options: options)
     }
     
-    init(router: FavoritesRouterProtocol, interactor: FavoriteInteractorProtocol = FavoriteInteractor()) {
+    init(router: FavoritesRouterProtocol, interactor: FavoritesInteractorProtocol = FavoritesInteractor()) {
         self.router = router
         self.interactor = interactor
     }
