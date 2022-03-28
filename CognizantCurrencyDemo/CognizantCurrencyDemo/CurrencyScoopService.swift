@@ -14,11 +14,6 @@ protocol CurrencyScoopServiceProtocol {
     func getCurrencyRates(base: String, latest:[String])  -> AnyPublisher<CurrencyRates?, Never>
 }
 
-extension CurrencyScoopServiceProtocol {
-    func convertCurrency(from: String, to: String, amount: String){}
-    func getCurrencyRates(base: String, latest:[String]) {}
-}
-
 class CurrencyScoopService: CurrencyScoopServiceProtocol {
 
     private let networkClient: NetworkClientProtocol
