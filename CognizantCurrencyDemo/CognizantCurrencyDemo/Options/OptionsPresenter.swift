@@ -40,15 +40,14 @@ class OptionsPresenter: OptionsPresenterProtocol {
     }
 
     func handleViewDidLoad() {
-        interactor.getAllCurrencies().sink { [weak self] in
-            self?.handleCurrenciesPublisher(rawCurrencies: $0)
-        }.store(in: &subscriptions)
-
         interactor.optionsPublisher.sink { [weak self] in
             self?.handleOptionsPublisher(options: $0)
         }.store(in: &subscriptions)
-
         interactor.loadOptionsData()
+
+        interactor.getAllCurrencies().sink { [weak self] in
+            self?.handleCurrenciesPublisher(rawCurrencies: $0)
+        }.store(in: &subscriptions)
     }
 
     func handleFavoriteUpdate(isFavorite: Bool, for currency: Currency) {

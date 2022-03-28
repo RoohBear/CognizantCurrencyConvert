@@ -10,8 +10,8 @@ import Combine
 
 /// Type responsible for receiving an input, perform an operation using that input and comunicating the output of that operation.
 protocol CurrencyConverterInteractorProtocol {
-    func currencyList() -> AnyPublisher<[Currency], Never>
-    func convertionRate(for currency: String,
+    func currencyList() -> AnyPublisher<[Currency]?, Never>
+    func conversionRate(for currency: String,
                         from baseCurrency: String,
                         amount: String) -> AnyPublisher<ConvertData?, Never>
 }
@@ -24,14 +24,13 @@ class CurrencyConverterInteractor: CurrencyConverterInteractorProtocol {
         self.currencyScoopService = service
     }
     
-    func currencyList() -> AnyPublisher<[Currency], Never> {
+    func currencyList() -> AnyPublisher<[Currency]?, Never> {
         currencyScoopService.getCurrencies()
-            .replaceNil(with: [Currency.defaultCurrency])
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
     
-    func convertionRate(for currency: String,
+    func conversionRate(for currency: String,
                         from baseCurrency: String,
                         amount: String) -> AnyPublisher<ConvertData?, Never> {
         currencyScoopService.convertCurrency(from: currency,

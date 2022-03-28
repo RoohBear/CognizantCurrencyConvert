@@ -63,6 +63,7 @@ extension CurrencyConverterPresenter {
     
     func viewReady() {
         interactor.currencyList()
+            .replaceNil(with: [Currency.defaultCurrency])
             .sink { [weak self] in
                 self?.updateCurrecyCodeList(list: $0)
             }.store(in: &cancellables)
@@ -71,7 +72,7 @@ extension CurrencyConverterPresenter {
     func converterCriteriaUpdated(withBaseCurrencyIndex baseCurrencyIndex: Int,
                                   currencyIndex: Int,
                                   amount: String) {
-        interactor.convertionRate(for: currencyList[currencyIndex],
+        interactor.conversionRate(for: currencyList[currencyIndex],
                                   from: currencyList[baseCurrencyIndex],
                                   amount: amount)
         .replaceNil(with: ConvertData.defaultConvertData)
