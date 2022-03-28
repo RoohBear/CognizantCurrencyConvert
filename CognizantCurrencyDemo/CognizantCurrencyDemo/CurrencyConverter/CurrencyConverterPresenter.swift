@@ -57,7 +57,7 @@ extension CurrencyConverterPresenter {
         currencyList.count
     }
     
-    func currencyData(at index: Int) -> String {
+    func currency(at index: Int) -> String {
         currencyList[index]
     }
     

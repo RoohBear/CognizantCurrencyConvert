@@ -83,6 +83,10 @@ extension CurrencyConverterViewController {
             .assign(to: \.text, on: labelResult)
             .store(in: &cancellables)
     }
+    
+    private func setFromLabel(for index: Int) {
+        labelSourceCurrency.text = presenter.currency(at: index)
+    }
 }
 
 // MARK: TableView Data Source Methods
@@ -97,7 +101,7 @@ extension CurrencyConverterViewController: UITableViewDataSource {
             cell = cellReused
         }
         
-        cell.textLabel?.text = presenter.currencyData(at: indexPath.row)
+        cell.textLabel?.text = presenter.currency(at: indexPath.row)
         return cell
     }
 }
@@ -105,6 +109,9 @@ extension CurrencyConverterViewController: UITableViewDataSource {
 // MARK: TableVew Delegate methods
 extension CurrencyConverterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == tableFrom {
+            setFromLabel(for: indexPath.row)
+        }
         exchangeRateCriteriaUpdated()
     }
 }
