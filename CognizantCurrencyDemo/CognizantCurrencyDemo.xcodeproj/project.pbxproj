@@ -16,7 +16,6 @@
 		27F6DEBF27E8DD0300CCDD2D /* CognizantCurrencyDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DEBE27E8DD0300CCDD2D /* CognizantCurrencyDemoTests.swift */; };
 		27F6DEC927E8DD0300CCDD2D /* CognizantCurrencyDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DEC827E8DD0300CCDD2D /* CognizantCurrencyDemoUITests.swift */; };
 		27F6DECB27E8DD0300CCDD2D /* CognizantCurrencyDemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DECA27E8DD0300CCDD2D /* CognizantCurrencyDemoUITestsLaunchTests.swift */; };
-		B573CCD127EE218600602286 /* OptionsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B573CCD027EE218600602286 /* OptionsPresenterTests.swift */; };
 		B57F71B427E9330800732190 /* CurrencyScoopServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71B327E9330800732190 /* CurrencyScoopServiceTests.swift */; };
 		B57F71B727E93BFA00732190 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71B627E93BFA00732190 /* NetworkClient.swift */; };
 		B57F71B927E93C1C00732190 /* EndpointProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F71B827E93C1C00732190 /* EndpointProvider.swift */; };
@@ -70,7 +69,6 @@
 		27F6DEC427E8DD0300CCDD2D /* CognizantCurrencyDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CognizantCurrencyDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F6DEC827E8DD0300CCDD2D /* CognizantCurrencyDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognizantCurrencyDemoUITests.swift; sourceTree = "<group>"; };
 		27F6DECA27E8DD0300CCDD2D /* CognizantCurrencyDemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognizantCurrencyDemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		B573CCD027EE218600602286 /* OptionsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsPresenterTests.swift; sourceTree = "<group>"; };
 		B57F71B327E9330800732190 /* CurrencyScoopServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyScoopServiceTests.swift; sourceTree = "<group>"; };
 		B57F71B627E93BFA00732190 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		B57F71B827E93C1C00732190 /* EndpointProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointProvider.swift; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 		27F6DEBD27E8DD0300CCDD2D /* CognizantCurrencyDemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				B573CCD027EE218600602286 /* OptionsPresenterTests.swift */,
 				B57F71DE27ECD5BA00732190 /* OptionsRepositoryTests.swift */,
 				B57F71D627EBC5AB00732190 /* OptionsInteractorTests.swift */,
 				B57F71B327E9330800732190 /* CurrencyScoopServiceTests.swift */,
@@ -392,7 +389,6 @@
 				B57F71B427E9330800732190 /* CurrencyScoopServiceTests.swift in Sources */,
 				B57F71DF27ECD5BA00732190 /* OptionsRepositoryTests.swift in Sources */,
 				B57F71D727EBC5AB00732190 /* OptionsInteractorTests.swift in Sources */,
-				B573CCD127EE218600602286 /* OptionsPresenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
