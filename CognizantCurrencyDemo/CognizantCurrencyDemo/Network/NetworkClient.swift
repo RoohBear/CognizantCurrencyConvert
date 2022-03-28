@@ -29,3 +29,20 @@ class NetworkClient: NetworkClientProtocol {
         return dataPublisher.eraseToAnyPublisher()
     }
 }
+
+// Another way of doing service
+
+//protocol ScoopServiceProtocol {
+//    func data<T: Decodable>(from endpoint: URL, output: T.Type) -> AnyPublisher<T?, Error>
+//}
+//
+//class ScoopService: ScoopServiceProtocol {
+//    func data<T: Decodable>(from endpoint: URL, output: T.Type) -> AnyPublisher<T?, Error> {
+//        return URLSession.shared.dataTaskPublisher(for: endpoint)
+//            .map { $0.data }
+//            .decode(type: output.self, decoder: JSONDecoder())
+//            .map { $0 }
+//            .receive(on: RunLoop.main)
+//            .eraseToAnyPublisher()
+//    }
+//}
