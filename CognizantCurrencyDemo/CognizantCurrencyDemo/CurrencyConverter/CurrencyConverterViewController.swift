@@ -14,6 +14,11 @@ class CurrencyConverterViewController: UIViewController {
     @IBOutlet weak var textfieldConvertFrom:UITextField!
     @IBOutlet weak var labelResult:UILabel!
     @IBOutlet weak var labelSourceCurrency:UILabel!
+    @IBOutlet weak var contentStack: UIStackView!
+    @IBOutlet weak var fallbackLabel: UILabel!
+    
+    @IBOutlet weak var activity: UIActivityIndicatorView!
+    @IBOutlet weak var rateUpdateActivity: UIActivityIndicatorView!
     
     private var cancellables = Set<AnyCancellable>()
     private var presenter: CurrencyConverterPresenterProtocol!
@@ -38,8 +43,9 @@ class CurrencyConverterViewController: UIViewController {
         super.viewDidLoad()
         
         setTextField()
-        
         sinkToPublishers()
+        
+        activity.startAnimating()
         presenter.viewReady()
     }
 }
@@ -47,6 +53,9 @@ class CurrencyConverterViewController: UIViewController {
 // MARK: Private Methods
 extension CurrencyConverterViewController {
     private func refreshTableViews() {
+        activity.stopAnimating()
+        contentStack.isHidden = false
+        
         tableTo.reloadData()
         tableFrom.reloadData()
     }
@@ -60,6 +69,8 @@ extension CurrencyConverterViewController {
             return
         }
         
+        labelResult.text = nil
+        rateUpdateActivity.startAnimating()
         presenter.converterCriteriaUpdated(withBaseCurrencyIndex: baseCurrencyIndex.row,
                                            currencyIndex: currencyIndex.row,
                                            amount: amount)
@@ -82,6 +93,10 @@ extension CurrencyConverterViewController {
         presenter.currencyRatePublisher
             .assign(to: \.text, on: labelResult)
             .store(in: &cancellables)
+        
+        presenter.currencyRatePublisher.sink {[weak self] rate in
+            self?.rateUpdateActivity.stopAnimating()
+        }.store(in: &cancellables)
     }
     
     private func setFromLabel(for index: Int) {
@@ -96,11 +111,9 @@ extension CurrencyConverterViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        if let cellReused = tableView.dequeueReusableCell(withIdentifier: "cell") {
-            cell = cellReused
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell()
         
+        cell.textLabel?.textAlignment = .center
         cell.textLabel?.text = presenter.currency(at: indexPath.row)
         return cell
     }

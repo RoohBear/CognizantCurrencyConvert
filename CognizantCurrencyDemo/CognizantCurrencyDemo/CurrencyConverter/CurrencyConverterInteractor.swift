@@ -26,8 +26,8 @@ class CurrencyConverterInteractor: CurrencyConverterInteractorProtocol {
     
     func currencyList() -> AnyPublisher<[Currency], Never> {
         currencyScoopService.getCurrencies()
-            .receive(on: RunLoop.main)
             .replaceNil(with: [Currency.defaultCurrency])
+            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
     
