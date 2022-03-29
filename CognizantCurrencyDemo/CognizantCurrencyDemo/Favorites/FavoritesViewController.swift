@@ -14,7 +14,8 @@ final class FavoritesViewController: UIViewController {
     private var cellIdentifier: String { "cellIdentifier" }
     
     private var presenter: FavoritesPresenterProtocol!
-    private lazy var subscriptions = Set<AnyCancellable>()
+    private var currencyRateSubscription: AnyCancellable?
+    private var favoriteListSubscription: AnyCancellable?
     
     private var favoriteList: [Currency] = []
     private var currencyRates: CurrencyRates?
@@ -53,7 +54,12 @@ final class FavoritesViewController: UIViewController {
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
+        if self.traitCollection.userInterfaceStyle == .dark {
+            view.backgroundColor = .black
+            errorLabel.textColor = .white
+        } else {
+            view.backgroundColor = .white
+        }
         
         setupActivityIndicator()
         setupNavigationBar()
@@ -62,9 +68,9 @@ final class FavoritesViewController: UIViewController {
         
         handleCurrencyRateListPublisher(options: presenter.getOptions(), refreshRatesOnly: false)
         
-        presenter.favoriteListPublisher.receive(on: DispatchQueue.main).sink { [weak self] in
+        favoriteListSubscription = presenter.favoriteListPublisher.receive(on: DispatchQueue.main).sink { [weak self] in
             self?.handleCurrencyRateListPublisher(options: $0, refreshRatesOnly: false)
-        }.store(in: &subscriptions)
+        }
     }
     
     
@@ -111,8 +117,7 @@ final class FavoritesViewController: UIViewController {
             self.baseCurrency = options.baseCurrency
         }
         
-        presenter.currencyRatesPublisher(options: options).receive(on: DispatchQueue.main).sink { [weak self] response in
-            
+        currencyRateSubscription = presenter.currencyRatesPublisher(options: options).receive(on: DispatchQueue.main).sink { [weak self] response in
             self?.activityIndicator.stopAnimating()
             self?.activityIndicator.isHidden = true
             
@@ -121,8 +126,7 @@ final class FavoritesViewController: UIViewController {
             
             self?.currencyRates = response
             self?.tableView.reloadData()
-            
-        }.store(in: &subscriptions)
+        }
     }
     
     
@@ -151,6 +155,8 @@ extension FavoritesViewController: UITableViewDataSource {
         
         if let currencyRate = currencyRates?.rates[currencyCode] as? Double {
             cell.detailTextLabel?.text = String(currencyRate)
+        } else {
+            cell.detailTextLabel?.text = "Not available"
         }
         
         return cell
