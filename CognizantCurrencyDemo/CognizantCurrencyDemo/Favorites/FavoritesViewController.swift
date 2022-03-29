@@ -55,6 +55,7 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .white
         
+        setupActivityIndicator()
         setupNavigationBar()
         setupTableView()
         setupAlertView()
@@ -68,6 +69,12 @@ final class FavoritesViewController: UIViewController {
     
     
     // MARK: - Helper Methods
+    
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        activityIndicator.activateConstraints()
+    }
     
     private func setupAlertView() {
         view.addSubview(errorLabel)
@@ -93,6 +100,9 @@ final class FavoritesViewController: UIViewController {
         guard let options = options, !options.favorites.isEmpty else {
             self.tableView.isHidden = true
             self.errorLabel.isHidden = false
+            
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
             return
         }
         
@@ -103,8 +113,12 @@ final class FavoritesViewController: UIViewController {
         
         presenter.currencyRatesPublisher(options: options).receive(on: DispatchQueue.main).sink { [weak self] response in
             
+            self?.activityIndicator.stopAnimating()
+            self?.activityIndicator.isHidden = true
+            
             self?.errorLabel.isHidden = true
             self?.tableView.isHidden = false
+            
             self?.currencyRates = response
             self?.tableView.reloadData()
             
