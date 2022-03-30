@@ -49,64 +49,64 @@ class OptionsPresenterTests: XCTestCase {
             favorites: [fakeCurrencies[1]]
         )
         mockInteractor.currencies = [fakeCurrencies[2]]
-        var presentationData: OptionsPresentationData?
-        subscription = presenter.presentationDataPublisher.sink {
-            presentationData = $0
-            guard presentationData != nil else { return }
+        var state: OptionsState?
+        subscription = presenter.statePublisher.sink {
+            state = $0
+            guard state != nil else { return }
             self.expectation.fulfill()
         }
-        presenter.handleViewDidLoad()
+        presenter.processAction(.viewReady)
         wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(presentationData?.options.baseCurrency, fakeCurrencies[0])
-        XCTAssertEqual(presentationData?.options.favorites, [fakeCurrencies[1]])
-        XCTAssertEqual(presentationData?.currencyList, [fakeCurrencies[2]])
+        XCTAssertEqual(state?.options.baseCurrency, fakeCurrencies[0])
+        XCTAssertEqual(state?.options.favorites, [fakeCurrencies[1]])
+        XCTAssertEqual(state?.allCurrencies, [fakeCurrencies[2]])
     }
 
     func testAddFavorite() {
-        presenter.handleViewDidLoad()
+        presenter.processAction(.viewReady)
         let fakeCurrency = fakeCurrencies[0]
-        var presentationData: OptionsPresentationData?
-        subscription = presenter.presentationDataPublisher.sink {
-            presentationData = $0
-            guard presentationData != nil else { return }
+        var state: OptionsState?
+        subscription = presenter.statePublisher.sink {
+            state = $0
+            guard state != nil else { return }
             self.expectation.fulfill()
         }
-        presenter.handleFavoriteUpdate(isFavorite: true, for: fakeCurrency)
+        presenter.processAction(.favoriteUpdate(isFavorite: true, currency: fakeCurrency))
         wait(for: [expectation], timeout: 1)
-        XCTAssertTrue(presentationData?.options.favorites.contains(fakeCurrency) == true)
+        XCTAssertTrue(state?.options.favorites.contains(fakeCurrency) == true)
     }
 
     func testRemoveFavorite() {
-        presenter.handleViewDidLoad()
+        presenter.processAction(.viewReady)
         let fakeCurrency = fakeCurrencies[0]
         mockInteractor.options = Options(baseCurrency: .defaultCurrency, favorites: [fakeCurrency])
-        var presentationData: OptionsPresentationData?
-        subscription = presenter.presentationDataPublisher.sink {
-            presentationData = $0
-            guard presentationData != nil else { return }
+        var state: OptionsState?
+        subscription = presenter.statePublisher.sink {
+            state = $0
+            guard state != nil else { return }
             self.expectation.fulfill()
         }
-        presenter.handleFavoriteUpdate(isFavorite: false, for: fakeCurrency)
+        presenter.processAction(.favoriteUpdate(isFavorite: false, currency: fakeCurrency))
         wait(for: [expectation], timeout: 1)
-        XCTAssertTrue(presentationData?.options.favorites.isEmpty == true)
+        XCTAssertTrue(state?.options.favorites.isEmpty == true)
     }
 
     func testDismiss() {
-        presenter.handleDone()
+        presenter.processAction(.doneButton)
         XCTAssertTrue(mockRouter.didDismiss)
     }
 
     func testNewBaseCurrency() {
-        presenter.handleViewDidLoad()
-        var presentationData: OptionsPresentationData?
-        subscription = presenter.presentationDataPublisher.sink {
-            presentationData = $0
-            guard presentationData != nil else { return }
+        presenter.processAction(.viewReady)
+        var state: OptionsState?
+        subscription = presenter.statePublisher.sink {
+            state = $0
+            guard state != nil else { return }
             self.expectation.fulfill()
         }
-        presenter.handleBaseCurrencyTap()
+        presenter.processAction(.baseCurrencyTap)
         wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(presentationData?.options.baseCurrency, mockRouter.fakeBaseCurrency)
+        XCTAssertEqual(state?.options.baseCurrency, mockRouter.fakeBaseCurrency)
     }
 }
 

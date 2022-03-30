@@ -10,10 +10,10 @@ import Combine
 
 class OptionsViewController: UIViewController {
 
-    private var presenter: OptionsPresenterProtocol!
+    private var presenter: AnyPresenter<OptionsAction, OptionsState>!
     private var cellIdentifier: String { "cellIdentifier" }
     private lazy var subscriptions = Set<AnyCancellable>()
-    private var presentationData: OptionsPresentationData?
+    private var state: OptionsPresenter.State?
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -41,11 +41,11 @@ class OptionsViewController: UIViewController {
         return errorLabel
     }()
 
-    convenience init(presenter: OptionsPresenterProtocol) {
+    convenience init(presenter: AnyPresenter<OptionsAction, OptionsState>) {
         self.init()
         self.presenter = presenter
-        presenter.presentationDataPublisher.receive(on: DispatchQueue.main).sink { [weak self] in
-            self?.handlePresentationDataPublisher($0)
+        presenter.statePublisher.receive(on: DispatchQueue.main).sink { [weak self] in
+            self?.handleStatePublisher($0)
         }.store(in: &subscriptions)
     }
 
@@ -59,7 +59,7 @@ class OptionsViewController: UIViewController {
         )
         navigationController?.navigationBar.tintColor = .label
         view.backgroundColor = .systemBackground
-        presenter.handleViewDidLoad()
+        presenter.processAction(.viewReady)
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
         view.addSubview(errorLabel)
@@ -68,7 +68,7 @@ class OptionsViewController: UIViewController {
     }
 
     @objc private func handleDone() {
-        presenter.handleDone()
+        presenter.processAction(.doneButton)
     }
 
     private func activateConstraints() {
@@ -89,16 +89,16 @@ class OptionsViewController: UIViewController {
         )
     }
 
-    private func handlePresentationDataPublisher(_ presentationData: OptionsPresentationData?) {
+    private func handleStatePublisher(_ state: OptionsPresenter.State?) {
         activityIndicator.isHidden = true
 
-        guard let presentationData = presentationData else {
+        guard let state = state else {
             errorLabel.isHidden = false
             return
         }
 
-        let isFirstData = self.presentationData == nil
-        self.presentationData = presentationData
+        let isFirstData = self.state == nil
+        self.state = state
         if isFirstData {
             tableView.reloadData()
         } else {
@@ -114,18 +114,20 @@ class OptionsViewController: UIViewController {
         let switchControl = UISwitch()
         switchControl.addAction(
             UIAction { _ in
-                self.presenter.handleFavoriteUpdate(isFavorite: switchControl.isOn, for: currency)
+                self.presenter.processAction(
+                    .favoriteUpdate(isFavorite: switchControl.isOn, currency: currency)
+                )
             },
             for: .valueChanged
         )
-        if let favorites = presentationData?.options.favorites {
+        if let favorites = state?.options.favorites {
             switchControl.isOn = favorites.contains(currency)
         }
         return switchControl
     }
 
     private func renderBaseCurrencyCell(_ cell: UITableViewCell) {
-        if let currency = presentationData?.options.baseCurrency {
+        if let currency = state?.options.baseCurrency {
             cell.textLabel?.text = "Base Currency: " + currency.currencyCode
             cell.detailTextLabel?.text = currency.currencyName
         }
@@ -158,7 +160,7 @@ extension OptionsViewController: UITableViewDelegate {
         guard Section(rawValue: indexPath.section) == .baseCurrency else {
             return
         }
-        presenter.handleBaseCurrencyTap()
+        presenter.processAction(.baseCurrencyTap)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -174,10 +176,10 @@ extension OptionsViewController: UITableViewDataSource {
         case .baseCurrency:
             return 1
         case .favorites:
-            let count = presentationData?.options.favorites.count ?? 0
+            let count = state?.options.favorites.count ?? 0
             return max(count, 1)
         case .allCurrencies:
-            return presentationData?.currencyList.count ?? 0
+            return state?.allCurrencies.count ?? 0
         }
     }
 
@@ -196,14 +198,14 @@ extension OptionsViewController: UITableViewDataSource {
         case .baseCurrency:
             renderBaseCurrencyCell(cell)
         case .favorites:
-            let favorites = presentationData?.options.favorites ?? []
+            let favorites = state?.options.favorites ?? []
             var currency: Currency?
             if !favorites.isEmpty {
                 currency = favorites[indexPath.row]
             }
             renderCurrencyListCell(cell, currency: currency)
         case .allCurrencies:
-            renderCurrencyListCell(cell, currency: presentationData?.currencyList[indexPath.row])
+            renderCurrencyListCell(cell, currency: state?.allCurrencies[indexPath.row])
         }
 
         return cell
