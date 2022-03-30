@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		273FCE0C27F4A58400686BCF /* AppIcon-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 273FCE0B27F4A58400686BCF /* AppIcon-1.png */; };
+		273FCE0E27F4F1F100686BCF /* CurrencyPickerInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FCE0D27F4F1F100686BCF /* CurrencyPickerInteractorTests.swift */; };
 		27F6DEA827E8DD0100CCDD2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DEA727E8DD0100CCDD2D /* AppDelegate.swift */; };
 		27F6DEAA27E8DD0100CCDD2D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DEA927E8DD0100CCDD2D /* SceneDelegate.swift */; };
 		27F6DEAC27E8DD0100CCDD2D /* CurrencyConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DEAB27E8DD0100CCDD2D /* CurrencyConverterViewController.swift */; };
@@ -71,6 +72,7 @@
 
 /* Begin PBXFileReference section */
 		273FCE0B27F4A58400686BCF /* AppIcon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon-1.png"; path = "Assets.xcassets/AppIcon.appiconset/AppIcon-1.png"; sourceTree = "<group>"; };
+		273FCE0D27F4F1F100686BCF /* CurrencyPickerInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CurrencyPickerInteractorTests.swift; path = CognizantCurrencyDemoTests/CurrencyPickerInteractorTests.swift; sourceTree = "<group>"; };
 		27F6DEA427E8DD0100CCDD2D /* CognizantCurrencyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CognizantCurrencyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F6DEA727E8DD0100CCDD2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27F6DEA927E8DD0100CCDD2D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		27F6DE9B27E8DD0100CCDD2D = {
 			isa = PBXGroup;
 			children = (
+				273FCE0D27F4F1F100686BCF /* CurrencyPickerInteractorTests.swift */,
 				27F6DEA627E8DD0100CCDD2D /* CognizantCurrencyDemo */,
 				27F6DEBD27E8DD0300CCDD2D /* CognizantCurrencyDemoTests */,
 				27F6DEC727E8DD0300CCDD2D /* CognizantCurrencyDemoUITests */,
@@ -473,6 +476,7 @@
 				9B1EA46A27F26139003120E4 /* CurrencyConverterInteractorTests.swift in Sources */,
 				B57F71B427E9330800732190 /* CurrencyScoopServiceTests.swift in Sources */,
 				B57F71DF27ECD5BA00732190 /* OptionsRepositoryTests.swift in Sources */,
+				273FCE0E27F4F1F100686BCF /* CurrencyPickerInteractorTests.swift in Sources */,
 				B57F71D727EBC5AB00732190 /* OptionsInteractorTests.swift in Sources */,
 				601B1BEF27F21BBF00D8A28B /* FavoritesInteractorTests.swift in Sources */,
 				B5BA7A0F27F1F2780087B43C /* OptionsPresenterTests.swift in Sources */,

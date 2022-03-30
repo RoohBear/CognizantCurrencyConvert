@@ -62,6 +62,7 @@ class OptionsPresenter: OptionsPresenterProtocol {
         router.dismiss()
     }
 
+    // called when user taps a row in the Options table
     func handleBaseCurrencyTap() {
         selectedCurrencySubscription = router.routeToCurrencyPicker(
             selectedCurrencyCode: (options?.baseCurrency ?? .defaultCurrency).currencyCode

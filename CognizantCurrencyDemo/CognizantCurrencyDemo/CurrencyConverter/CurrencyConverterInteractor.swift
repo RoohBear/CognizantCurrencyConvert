@@ -30,10 +30,11 @@ class CurrencyConverterInteractor: CurrencyConverterInteractorProtocol {
             .eraseToAnyPublisher()
     }
     
-    func conversionRate(for currency: String,
-                        from baseCurrency: String,
-                        amount: String) -> AnyPublisher<ConvertData?, Never> {
-        currencyScoopService.convertCurrency(from: currency,
+    // called by a presenter when the user wants to do a currency conversion
+    func conversionRate(for currency: String,                                       // destination conversion ("USD")
+                        from baseCurrency: String,                                  // source conversion ("CAD")
+                        amount: String) -> AnyPublisher<ConvertData?, Never> {      // the amount to convert
+        currencyScoopService.convertCurrency(from: currency,                        // call the CurrencyScoopService here.
                                              to: baseCurrency,
                                              amount: amount)
         
