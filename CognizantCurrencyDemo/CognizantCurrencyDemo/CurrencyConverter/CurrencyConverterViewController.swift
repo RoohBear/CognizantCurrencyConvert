@@ -60,6 +60,7 @@ extension CurrencyConverterViewController {
         tableFrom.reloadData()
     }
     
+    // ** called when the user updates text in the UITextField, or when the selection in the tables have changed
     private func exchangeRateCriteriaUpdated() {
         guard let amount = textfieldConvertFrom.text,
               !amount.trimmingCharacters(in: .whitespaces).isEmpty,
@@ -85,17 +86,26 @@ extension CurrencyConverterViewController {
             .store(in: &cancellables)
     }
     
+    // called by ViewDidLoad. Subscribes to publishers to update the UI when we get results from the scoop service
     private func sinkToPublishers() {
+        // this one updates the tables when we download the currencies
         presenter.listUpdatePublisher.sink {
             self.refreshTableViews()
         }.store(in: &cancellables)
         
-        presenter.currencyRatePublisher
-            .assign(to: \.text, on: labelResult)
-            .store(in: &cancellables)
+        // this just sets presenter.currencyRatePublisher to update labelResult when presenter publishes a result
+        // (an alternative way of setting self.labelResult)
+        #if false
+            presenter.currencyRatePublisher
+                .assign(to: \.text, on: labelResult)
+                .store(in: &cancellables)
+        #endif
         
+        // this sets the label to the result,
+        // stops the activityindicator when presenter.currencyRatePublisher publishes a result
         presenter.currencyRatePublisher.sink {[weak self] rate in
             self?.rateUpdateActivity.stopAnimating()
+            self?.labelResult.text = rate
         }.store(in: &cancellables)
     }
     

@@ -66,8 +66,11 @@ final class FavoritesViewController: UIViewController {
         setupTableView()
         setupAlertView()
         
+        // gets the options in the OptionsRepository
+        //
         handleCurrencyRateListPublisher(options: presenter.getOptions(), refreshRatesOnly: false)
         
+        // listens to the OptionsRepository
         favoriteListSubscription = presenter.favoriteListPublisher.receive(on: DispatchQueue.main).sink { [weak self] in
             self?.handleCurrencyRateListPublisher(options: $0, refreshRatesOnly: false)
         }
@@ -117,6 +120,7 @@ final class FavoritesViewController: UIViewController {
             self.baseCurrency = options.baseCurrency
         }
         
+        // listens to the currency rate publisher that fetches the currency rate options
         currencyRateSubscription = presenter.currencyRatesPublisher(options: options).receive(on: DispatchQueue.main).sink { [weak self] response in
             self?.activityIndicator.stopAnimating()
             self?.activityIndicator.isHidden = true
@@ -124,7 +128,7 @@ final class FavoritesViewController: UIViewController {
             self?.errorLabel.isHidden = true
             self?.tableView.isHidden = false
             
-            self?.currencyRates = response
+            self?.currencyRates = response  // response is a CurrencyRates object containing a dictionary of [String:Double] objects
             self?.tableView.reloadData()
         }
     }

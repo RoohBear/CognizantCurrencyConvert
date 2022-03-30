@@ -33,6 +33,7 @@ class CurrencyConverterPresenter: CurrencyConverterPresenterProtocol {
 
 // MARK: Private Methods
 extension CurrencyConverterPresenter {
+    // called after ScoopService has returned with a conversion for the user to display.
     private func update(exchangeRate: ConvertData) {
         currencyExchangeRatePublisher.send(exchangeRateString(from: exchangeRate))
     }
@@ -41,7 +42,7 @@ extension CurrencyConverterPresenter {
         "\(String(format: "%.3f", exchangeData.value)) \(exchangeData.to)"
     }
     
-    private func updateCurrecyCodeList(list: [Currency]) {
+    private func updateCurrencyCodeList(list: [Currency]) {
         currencyList = list.map{ $0.currencyCode }.sorted()
         updateListPublisher.send()
     }
@@ -65,20 +66,21 @@ extension CurrencyConverterPresenter {
         interactor.currencyList()
             .replaceNil(with: [Currency.defaultCurrency])
             .sink { [weak self] in
-                self?.updateCurrecyCodeList(list: $0)
+                self?.updateCurrencyCodeList(list: $0)
             }.store(in: &cancellables)
     }
     
-    func converterCriteriaUpdated(withBaseCurrencyIndex baseCurrencyIndex: Int,
-                                  currencyIndex: Int,
-                                  amount: String) {
-        interactor.conversionRate(for: currencyList[currencyIndex],
-                                  from: currencyList[baseCurrencyIndex],
-                                  amount: amount)
-        .replaceNil(with: ConvertData.defaultConvertData)
-        .sink(receiveValue: { [weak self] in
-            self?.update(exchangeRate: $0)
+    // called by a view controller when the user has updated the UI and we need to do a currency conversion
+    func converterCriteriaUpdated(withBaseCurrencyIndex baseCurrencyIndex: Int,     // index of base currency to convert TO
+                                  currencyIndex: Int,                               // currency to convert FROM
+                                  amount: String) {                                 // the amount the user wants to convert
+        interactor.conversionRate(for: currencyList[currencyIndex],                 // currency to convert TO (ie "USD")
+                                  from: currencyList[baseCurrencyIndex],            // currency to convert FROM (ie "CAD")
+                                  amount: amount)                                   // the amount to convert
+        .replaceNil(with: ConvertData.defaultConvertData)                           // if `for` or `from` are nil, replace them with "USD"
+        .sink(receiveValue: { [weak self] in                                        // this calls interactor.conversionRate()
+            self?.update(exchangeRate: $0)                                          // $0 is a ConvertData object. $0.to is destination currency string, $0.value is the result of the API call. Call self.update() with the result
         })
-        .store(in: &cancellables)
+        .store(in: &cancellables)                                                   // store the result in self.cancellables because
     }
 }
