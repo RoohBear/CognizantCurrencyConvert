@@ -9,18 +9,21 @@ import XCTest
 import Combine
 @testable import CognizantCurrencyDemo
 
-class CurrencyConverterInteractorTests: XCTestCase {
+class CurrencyConverterInteractorTests: XCTestCase
+{
     private var mockService: MockService!
     private var interactor: CurrencyConverterInteractorProtocol!
     private var expectation: XCTestExpectation!
     private var cancellable: AnyCancellable!
-    
+
+    // this is called before every test
     override func setUpWithError() throws {
         mockService = MockService()
-        interactor = CurrencyConverterInteractor(service: mockService)
+        interactor = CurrencyConverterInteractor(service: mockService)  // VIPER thing that sits between the entity and the presenter. Takes direction from the presenter.
         expectation = expectation(description: "wait for publisher")
     }
 
+    // called after every test
     override func tearDownWithError() throws {
         mockService = nil
         interactor = nil
@@ -28,10 +31,12 @@ class CurrencyConverterInteractorTests: XCTestCase {
         cancellable = nil
     }
     
-    private func exptectationWait() {
+    // helper function that makes an expectation wait for 8 seconds
+    private func expectationWait() {
         wait(for: [expectation], timeout: 8)
     }
 
+    // if we get no currencies, interactor.currencyList() should return nil
     func testCurrencyList_WhenGetNoCurrencies_shouldReturnNil() {
         mockService.mockCurrencies = nil
         var currencyList: [Currency]?
@@ -40,12 +45,12 @@ class CurrencyConverterInteractorTests: XCTestCase {
             currencyList = currencies
             self.expectation.fulfill()
         })
-        exptectationWait()
+        expectationWait()
         
         XCTAssertNil(currencyList, "When service returns nil interactor should return nil")
     }
     
-    func testCurrencyList_WhenRecieveCurrencies_shouldGetCurreciesArray() {
+    func testCurrencyList_WhenRecieveCurrencies_shouldGetCurrenciesArray() {
         let currencies = [Currency.defaultCurrency]
         mockService.mockCurrencies = [Currency.defaultCurrency]
         var currencyList: [Currency]?
@@ -54,7 +59,7 @@ class CurrencyConverterInteractorTests: XCTestCase {
             currencyList = currencies
             self.expectation.fulfill()
         })
-        exptectationWait()
+        expectationWait()
         
         XCTAssertEqual(currencyList, currencies, "When service is success interactor should return array of currecies")
     }
@@ -67,7 +72,7 @@ class CurrencyConverterInteractorTests: XCTestCase {
             conversionRate = $0
             self.expectation.fulfill()
         }
-        exptectationWait()
+        expectationWait()
         
         XCTAssertNil(conversionRate, "When service returns nil interactor should return nil")
     }
@@ -81,7 +86,7 @@ class CurrencyConverterInteractorTests: XCTestCase {
             conversionRate = $0
             self.expectation.fulfill()
         }
-        exptectationWait()
+        expectationWait()
         
         XCTAssertEqual(conversionRate, conversionData, "When service is successful interactor should recieve conversion data")
     }
