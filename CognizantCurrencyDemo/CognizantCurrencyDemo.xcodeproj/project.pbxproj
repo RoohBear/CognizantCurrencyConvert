@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		273FCE0C27F4A58400686BCF /* AppIcon-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 273FCE0B27F4A58400686BCF /* AppIcon-1.png */; };
 		27F6DEA827E8DD0100CCDD2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DEA727E8DD0100CCDD2D /* AppDelegate.swift */; };
 		27F6DEAA27E8DD0100CCDD2D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DEA927E8DD0100CCDD2D /* SceneDelegate.swift */; };
 		27F6DEAC27E8DD0100CCDD2D /* CurrencyConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6DEAB27E8DD0100CCDD2D /* CurrencyConverterViewController.swift */; };
@@ -69,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		273FCE0B27F4A58400686BCF /* AppIcon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon-1.png"; path = "Assets.xcassets/AppIcon.appiconset/AppIcon-1.png"; sourceTree = "<group>"; };
 		27F6DEA427E8DD0100CCDD2D /* CognizantCurrencyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CognizantCurrencyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F6DEA727E8DD0100CCDD2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27F6DEA927E8DD0100CCDD2D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				B57F71C827EB68FE00732190 /* Options */,
 				27F6DEAD27E8DD0100CCDD2D /* Main.storyboard */,
 				27F6DEB027E8DD0300CCDD2D /* Assets.xcassets */,
+				273FCE0B27F4A58400686BCF /* AppIcon-1.png */,
 				27F6DEB227E8DD0300CCDD2D /* LaunchScreen.storyboard */,
 				27F6DEB527E8DD0300CCDD2D /* Info.plist */,
 			);
@@ -402,6 +405,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				273FCE0C27F4A58400686BCF /* AppIcon-1.png in Resources */,
 				27F6DEB427E8DD0300CCDD2D /* LaunchScreen.storyboard in Resources */,
 				27F6DEB127E8DD0300CCDD2D /* Assets.xcassets in Resources */,
 				27F6DEAF27E8DD0100CCDD2D /* Main.storyboard in Resources */,

@@ -11,10 +11,12 @@ fileprivate enum ConvertDataConstants {
     static let defaultConvertValue = 0.0
 }
 
+// holds the response from the Scoop API
 struct ConvertDataResponse: Codable {
     let response: ConvertData
 }
 
+// holds the response from actually converting from one currency to another
 struct ConvertData: Codable, Equatable {
     let to: String
     let value: Double
