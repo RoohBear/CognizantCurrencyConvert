@@ -16,7 +16,6 @@ protocol CurrencyConverterPresenterProtocol {
     func viewReady()
     func numberCurrencies() -> Int
     func currency(at index: Int) -> String
-    func conversionValue() -> String
     func converterCriteriaUpdated(withBaseCurrencyIndex baseCurrencyIndex: Int,
                                   currencyIndex: Int,
                                   amount: String)

@@ -15,7 +15,7 @@ struct ConvertDataResponse: Codable {
     let response: ConvertData
 }
 
-struct ConvertData: Codable {
+struct ConvertData: Codable, Equatable {
     let to: String
     let value: Double
 
