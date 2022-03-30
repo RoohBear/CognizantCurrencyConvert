@@ -13,6 +13,7 @@ class CurrencyScoopServiceTests: XCTestCase {
 
     private var clientMock: NetworkClientMock!
     private var service: CurrencyScoopService!
+    private var cancellable: AnyCancellable!
 
     override func setUpWithError() throws {
         clientMock = NetworkClientMock()
@@ -22,6 +23,7 @@ class CurrencyScoopServiceTests: XCTestCase {
     override func tearDownWithError() throws {
         service = nil
         clientMock = nil
+        cancellable = nil
     }
 
     func testGetCurrienciesEndpoint() {
@@ -55,6 +57,50 @@ class CurrencyScoopServiceTests: XCTestCase {
                 XCTAssertTrue(currencies?.contains(currency) == true)
             }
         }
+    }
+    
+    func testConvertCurrency_WhenServiceFail_shouldReturnNil() {
+        let expectation = expectation(description: "wait for service")
+        var conversionData: ConvertData?
+        clientMock.dataResult = nil
+        
+        cancellable = service.convertCurrency(from: "CAD", to: "USD", amount: "1").sink {
+            conversionData = $0
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 8)
+        XCTAssertNil(conversionData, "Conversion data should be nil when service not receive no data")
+    }
+    
+    func testConvertCurrency_WhenServiceSucess_shouldReturnConversionData() {
+        let expectation = expectation(description: "wait for service")
+        var conversionData: ConvertData?
+        
+        clientMock.dataResult = ConvertDataResponse(response: ConvertData.defaultConvertData)
+        
+        cancellable = service.convertCurrency(from: "CAD", to: "USD", amount: "1").sink {
+            conversionData = $0
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 8)
+        XCTAssertNotNil(conversionData, "When service sucess conversion data should be returned")
+    }
+    
+    func testConvertCurrency_WhenServiceSucess_shouldReturnRightData() {
+        let expectation = expectation(description: "wait for service")
+        clientMock.dataResult = ConvertDataResponse(response: ConvertData.defaultConvertData)
+        let conversionData = ConvertData.defaultConvertData
+        var convertedData: ConvertData?
+        
+        cancellable = service.convertCurrency(from: "CAD", to: "USD", amount: "1").sink {
+            convertedData = $0
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 8)
+        XCTAssertEqual(conversionData, convertedData, "Converted data from service should be correct convert data")
     }
 }
 

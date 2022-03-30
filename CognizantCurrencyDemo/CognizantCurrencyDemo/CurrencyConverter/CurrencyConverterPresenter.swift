@@ -49,16 +49,16 @@ extension CurrencyConverterPresenter {
 
 // MARK: CurrencyConverterPresenterProtocol Methods
 extension CurrencyConverterPresenter {
-    func conversionValue() -> String {
-        String(exchageRate.value)
-    }
-    
     func numberCurrencies() -> Int {
         currencyList.count
     }
     
     func currency(at index: Int) -> String {
-        currencyList[index]
+        if currencyList.count < 1 {
+            return ""
+        }
+        
+        return currencyList[index]
     }
     
     func viewReady() {

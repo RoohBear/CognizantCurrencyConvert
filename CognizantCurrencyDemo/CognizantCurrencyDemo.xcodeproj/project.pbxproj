@@ -22,6 +22,8 @@
 		601B1BDF27EDDEE500D8A28B /* CurrencyRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601B1BDE27EDDEE500D8A28B /* CurrencyRates.swift */; };
 		601B1BEF27F21BBF00D8A28B /* FavoritesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601B1BED27F21BBF00D8A28B /* FavoritesInteractorTests.swift */; };
 		601B1BF027F21BBF00D8A28B /* FavoritesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601B1BEE27F21BBF00D8A28B /* FavoritesPresenterTests.swift */; };
+		9B18029927F2856A009836EC /* CurrencyConverterPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B18029827F2856A009836EC /* CurrencyConverterPresenterTests.swift */; };
+		9B1EA46A27F26139003120E4 /* CurrencyConverterInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1EA46927F26139003120E4 /* CurrencyConverterInteractorTests.swift */; };
 		9BA1005027EF681100CC4841 /* CurrencyConverterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA1004F27EF681100CC4841 /* CurrencyConverterPresenter.swift */; };
 		9BA1005227EF682A00CC4841 /* CurrencyConverterPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA1005127EF682A00CC4841 /* CurrencyConverterPresenterProtocol.swift */; };
 		9BBDCD2627ED675100D1D342 /* CurrencyConverterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBDCD2527ED675100D1D342 /* CurrencyConverterInteractor.swift */; };
@@ -86,6 +88,8 @@
 		601B1BDE27EDDEE500D8A28B /* CurrencyRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRates.swift; sourceTree = "<group>"; };
 		601B1BED27F21BBF00D8A28B /* FavoritesInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesInteractorTests.swift; sourceTree = "<group>"; };
 		601B1BEE27F21BBF00D8A28B /* FavoritesPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPresenterTests.swift; sourceTree = "<group>"; };
+		9B18029827F2856A009836EC /* CurrencyConverterPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterPresenterTests.swift; sourceTree = "<group>"; };
+		9B1EA46927F26139003120E4 /* CurrencyConverterInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterInteractorTests.swift; sourceTree = "<group>"; };
 		9BA1004F27EF681100CC4841 /* CurrencyConverterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterPresenter.swift; sourceTree = "<group>"; };
 		9BA1005127EF682A00CC4841 /* CurrencyConverterPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterPresenterProtocol.swift; sourceTree = "<group>"; };
 		9BBDCD2527ED675100D1D342 /* CurrencyConverterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterInteractor.swift; sourceTree = "<group>"; };
@@ -183,6 +187,7 @@
 		27F6DEBD27E8DD0300CCDD2D /* CognizantCurrencyDemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				9B1EA46827F25EBB003120E4 /* CurrencyConverterTests */,
 				601B1BEC27F21B7900D8A28B /* FavoriteTests */,
 				B5BA7A0E27F1F2780087B43C /* OptionsPresenterTests.swift */,
 				B57F71DE27ECD5BA00732190 /* OptionsRepositoryTests.swift */,
@@ -218,6 +223,15 @@
 				601B1BEE27F21BBF00D8A28B /* FavoritesPresenterTests.swift */,
 			);
 			path = FavoriteTests;
+			sourceTree = "<group>";
+		};
+		9B1EA46827F25EBB003120E4 /* CurrencyConverterTests */ = {
+			isa = PBXGroup;
+			children = (
+				9B1EA46927F26139003120E4 /* CurrencyConverterInteractorTests.swift */,
+				9B18029827F2856A009836EC /* CurrencyConverterPresenterTests.swift */,
+			);
+			path = CurrencyConverterTests;
 			sourceTree = "<group>";
 		};
 		9BBDCD2427ED4C6000D1D342 /* CurrencyConverter */ = {
@@ -451,6 +465,8 @@
 			files = (
 				601B1BF027F21BBF00D8A28B /* FavoritesPresenterTests.swift in Sources */,
 				27F6DEBF27E8DD0300CCDD2D /* CognizantCurrencyDemoTests.swift in Sources */,
+				9B18029927F2856A009836EC /* CurrencyConverterPresenterTests.swift in Sources */,
+				9B1EA46A27F26139003120E4 /* CurrencyConverterInteractorTests.swift in Sources */,
 				B57F71B427E9330800732190 /* CurrencyScoopServiceTests.swift in Sources */,
 				B57F71DF27ECD5BA00732190 /* OptionsRepositoryTests.swift in Sources */,
 				B57F71D727EBC5AB00732190 /* OptionsInteractorTests.swift in Sources */,

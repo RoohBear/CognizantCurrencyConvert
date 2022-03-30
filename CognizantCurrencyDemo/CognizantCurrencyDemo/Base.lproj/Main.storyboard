@@ -151,6 +151,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hsJ-oA-Yog" secondAttribute="bottom" constant="16" id="1Ei-h9-U2e"/>
                             <constraint firstItem="hsJ-oA-Yog" firstAttribute="top" secondItem="8Yi-5e-Q19" secondAttribute="bottom" constant="16" id="3NB-lx-h6s"/>
