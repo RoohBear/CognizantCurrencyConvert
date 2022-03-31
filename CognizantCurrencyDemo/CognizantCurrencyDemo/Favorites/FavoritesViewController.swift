@@ -75,14 +75,14 @@ final class FavoritesViewController: UIViewController {
         
         // gets the options in the OptionsRepository
         //
-        handleCurrencyRateListPublisher(options: presenter.getOptions(), refreshRatesOnly: false)
+        handleCurrencyRateListPublisher(options: presenter.getOptions())
         
         // listens to the OptionsRepository
         favoriteListSubscription = presenter.favoriteListPublisher.receive(on: DispatchQueue.main).sink { [weak self] in
-            self?.handleCurrencyRateListPublisher(options: $0, refreshRatesOnly: false)
+            self?.handleCurrencyRateListPublisher(options: $0)
         }
     }
-
+    
     // MARK: - Helper Methods
     
     @objc private func handleTableRefresh() {
@@ -97,7 +97,7 @@ final class FavoritesViewController: UIViewController {
             }
         }
     }
-
+    
     private func setupActivityIndicator() {
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
@@ -118,8 +118,8 @@ final class FavoritesViewController: UIViewController {
         navigationItem.title = favorites
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(openOptionMenu))
     }
-
-    private func handleCurrencyRateListPublisher(options: Options?, refreshRatesOnly: Bool) {
+    
+    private func handleCurrencyRateListPublisher(options: Options?) {
         guard let options = options, !options.favorites.isEmpty else {
             self.tableView.isHidden = true
             self.errorLabel.isHidden = false
@@ -129,10 +129,8 @@ final class FavoritesViewController: UIViewController {
             return
         }
         
-        if !refreshRatesOnly {
-            self.favoriteList = options.favorites
-            self.baseCurrency = options.baseCurrency
-        }
+        self.favoriteList = options.favorites
+        self.baseCurrency = options.baseCurrency
         
         // listens to the currency rate publisher that fetches the currency rate options
         currencyRateSubscription = presenter.currencyRatesPublisher(options: options).receive(on: DispatchQueue.main).sink { [weak self] response in
@@ -182,7 +180,7 @@ extension FavoritesViewController: UITableViewDataSource {
 }
 
 extension FavoritesViewController: UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = UILabel()
         header.font = UIFont.boldSystemFont(ofSize: UIFont.smallSystemFontSize)
