@@ -186,6 +186,7 @@ extension FavoritesViewController: UITableViewDelegate {
         header.font = UIFont.boldSystemFont(ofSize: UIFont.smallSystemFontSize)
         header.numberOfLines = 0
         header.textAlignment = .center
+        header.backgroundColor = .systemBackground
         if let baseCurrency = baseCurrency {
             let currencyDescription = "\(baseCurrency.currencyName) \(baseCurrency.currencyCode)"
             let components = [
@@ -194,9 +195,9 @@ extension FavoritesViewController: UITableViewDelegate {
                 "exchange rates current as of",
                 presenter.rateTimeInfo
             ]
-            let attributedText = NSMutableAttributedString(string: "")
+            let attributedText = NSMutableAttributedString(string: "\n")
             components.forEach {
-                let text = ($0 == components.first ? "" : "\n") + $0
+                let text = $0 + "\n"
                 let attributedString: NSAttributedString
                 if $0 == currencyDescription {
                     attributedString = NSAttributedString(
