@@ -26,7 +26,14 @@ final class FavoritesViewController: UIViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.isHidden = true
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(
+            self,
+            action: #selector(handleTableRefresh),
+            for: .valueChanged
+        )
         return tableView
     }()
     
@@ -75,10 +82,22 @@ final class FavoritesViewController: UIViewController {
             self?.handleCurrencyRateListPublisher(options: $0, refreshRatesOnly: false)
         }
     }
-    
-    
+
     // MARK: - Helper Methods
     
+    @objc private func handleTableRefresh() {
+        let options = presenter.getOptions()
+        currencyRateSubscription = presenter.currencyRatesPublisher(
+            options: options
+        ).sink { [weak self] in
+            self?.currencyRates = $0
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                self?.tableView.reloadData()
+                self?.tableView.refreshControl?.endRefreshing()
+            }
+        }
+    }
+
     private func setupActivityIndicator() {
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
@@ -97,14 +116,9 @@ final class FavoritesViewController: UIViewController {
     
     private func setupNavigationBar() {
         navigationItem.title = favorites
-        navigationItem.leftBarButtonItem =  UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(openOptionMenu))
     }
-    
-    @objc private func refreshButtonTapped() {
-        handleCurrencyRateListPublisher(options: presenter.getOptions(), refreshRatesOnly: true)
-    }
-    
+
     private func handleCurrencyRateListPublisher(options: Options?, refreshRatesOnly: Bool) {
         guard let options = options, !options.favorites.isEmpty else {
             self.tableView.isHidden = true
@@ -165,15 +179,41 @@ extension FavoritesViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        if let baseCurrency = baseCurrency {
-            return "Based Currency: \(baseCurrency.currencyName) \(baseCurrency.currencyCode)"
-        }
-        return "Error: Could not display currency name."
-    }
-    
 }
 
+extension FavoritesViewController: UITableViewDelegate {
 
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UILabel()
+        header.font = UIFont.boldSystemFont(ofSize: UIFont.smallSystemFontSize)
+        header.numberOfLines = 0
+        header.textAlignment = .center
+        if let baseCurrency = baseCurrency {
+            let currencyDescription = "\(baseCurrency.currencyName) \(baseCurrency.currencyCode)"
+            let components = [
+                "Base Currency:".uppercased(),
+                currencyDescription,
+                "exchange rates current as of",
+                presenter.rateTimeInfo
+            ]
+            let attributedText = NSMutableAttributedString(string: "")
+            components.forEach {
+                let text = ($0 == components.first ? "" : "\n") + $0
+                let attributedString: NSAttributedString
+                if $0 == currencyDescription {
+                    attributedString = NSAttributedString(
+                        string: text,
+                        attributes: [.font: UIFont.boldSystemFont(ofSize: UIFont.buttonFontSize)]
+                    )
+                } else {
+                    attributedString = NSAttributedString(string: text)
+                }
+                attributedText.append(attributedString)
+            }
+            header.attributedText = attributedText
+        } else {
+            header.text = "Error: Could not display currency name."
+        }
+        return header
+    }
+}
