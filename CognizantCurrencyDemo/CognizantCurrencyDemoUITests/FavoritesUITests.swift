@@ -27,10 +27,6 @@ class FavoritesUITests: XCTestCase {
         XCTAssert(app.navigationBars["Favorites"].exists)
     }
 
-    func testRefreshButtonIsHittable() {
-        XCTAssertTrue(app.navigationBars.buttons["Refresh"].isHittable)
-    }
-
     func testTapEditButton() {
         let editButton = app.navigationBars.buttons["Compose"]
         editButton.tap()
