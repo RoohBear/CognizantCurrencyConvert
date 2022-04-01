@@ -13,7 +13,7 @@ class CurrencyConverterPresenter: CurrencyConverterPresenterProtocol {
     var listUpdatePublisher: AnyPublisher<Void, Never>
     var currencyRatePublisher: AnyPublisher<String?, Never>
     
-    private var currencyList: [String] = []
+    private var currencyList: [Currency] = []
     private var exchageRate: ConvertData = ConvertData.defaultConvertData
     
     private let interactor: CurrencyConverterInteractorProtocol
@@ -43,7 +43,7 @@ extension CurrencyConverterPresenter {
     }
     
     private func updateCurrencyCodeList(list: [Currency]) {
-        currencyList = list.map{ $0.currencyCode }.sorted()
+        currencyList = list
         updateListPublisher.send()
     }
 }
@@ -54,14 +54,22 @@ extension CurrencyConverterPresenter {
         currencyList.count
     }
     
-    func currency(at index: Int) -> String {
+    func currencyCode(at index: Int) -> String {
         if currencyList.count < 1 {
             return ""
         }
         
-        return currencyList[index]
+        return currencyList[index].currencyCode
     }
     
+    func currencyName(at index: Int) -> String {
+        if currencyList.count < 1 {
+            return ""
+        }
+        
+        return currencyList[index].currencyName
+    }
+
     func viewReady() {
         interactor.currencyList()
             .replaceNil(with: [Currency.defaultCurrency])
@@ -71,16 +79,16 @@ extension CurrencyConverterPresenter {
     }
     
     // called by a view controller when the user has updated the UI and we need to do a currency conversion
-    func converterCriteriaUpdated(withBaseCurrencyIndex baseCurrencyIndex: Int,     // index of base currency to convert TO
-                                  currencyIndex: Int,                               // currency to convert FROM
-                                  amount: String) {                                 // the amount the user wants to convert
-        interactor.conversionRate(for: currencyList[currencyIndex],                 // currency to convert TO (ie "USD")
-                                  from: currencyList[baseCurrencyIndex],            // currency to convert FROM (ie "CAD")
-                                  amount: amount)                                   // the amount to convert
-        .replaceNil(with: ConvertData.defaultConvertData)                           // if `for` or `from` are nil, replace them with "USD"
-        .sink(receiveValue: { [weak self] in                                        // this calls interactor.conversionRate()
-            self?.update(exchangeRate: $0)                                          // $0 is a ConvertData object. $0.to is destination currency string, $0.value is the result of the API call. Call self.update() with the result
+    func converterCriteriaUpdated(withBaseCurrencyIndex baseCurrencyIndex: Int,         // index of base currency to convert TO
+                                  currencyIndex: Int,                                   // currency to convert FROM
+                                  amount: String) {                                     // the amount the user wants to convert
+        interactor.conversionRate(for: currencyList[currencyIndex].currencyCode,        // currency to convert TO (ie "USD")
+                                  from: currencyList[baseCurrencyIndex].currencyCode,   // currency to convert FROM (ie "CAD")
+                                  amount: amount)                                       // the amount to convert
+        .replaceNil(with: ConvertData.defaultConvertData)                               // if `for` or `from` are nil, replace them with "USD"
+        .sink(receiveValue: { [weak self] in                                            // this calls interactor.conversionRate()
+            self?.update(exchangeRate: $0)                                              // $0 is a ConvertData object. $0.to is destination currency string, $0.value is the result of the API call. Call self.update() with the result
         })
-        .store(in: &cancellables)                                                   // store the result in self.cancellables because
+        .store(in: &cancellables)                                                       // store the result in self.cancellables because
     }
 }

@@ -110,7 +110,7 @@ extension CurrencyConverterViewController {
     }
     
     private func setFromLabel(for index: Int) {
-        labelSourceCurrency.text = presenter.currency(at: index)
+        labelSourceCurrency.text = presenter.currencyCode(at: index)
     }
 }
 
@@ -121,10 +121,11 @@ extension CurrencyConverterViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         
         cell.textLabel?.textAlignment = .center
-        cell.textLabel?.text = presenter.currency(at: indexPath.row)
+        cell.textLabel?.text = presenter.currencyCode(at: indexPath.row)
+        cell.detailTextLabel?.text = presenter.currencyName(at: indexPath.row)
         return cell
     }
 }
