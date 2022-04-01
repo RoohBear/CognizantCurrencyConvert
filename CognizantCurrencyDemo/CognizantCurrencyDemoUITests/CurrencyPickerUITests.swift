@@ -1,5 +1,5 @@
 //
-//  CurrencyPickerTests.swift
+//  CurrencyPickerUITests.swift
 //  CognizantCurrencyDemoUITests
 //
 //  Created by Curtis Stilwell on 4/1/22.
@@ -7,7 +7,7 @@
 
 import XCTest
 
-class CurrencyPickerTests: XCTestCase {
+class CurrencyPickerUITests: XCTestCase {
     
     private var app: XCUIApplication!
     private var apiKey: String!
