@@ -100,8 +100,11 @@ extension CurrencyPickerViewController: UITableViewDataSource {
         }
 
         let currency = currencyList[indexPath.row]
-        cell.textLabel?.text = currency.currencyCode + ": " + currency.currencyName
+        let cellText = currency.currencyCode + ": " + currency.currencyName
+        
+        cell.textLabel?.text = cellText
         cell.accessoryType = presenter.isSelectedCurrency(currency) ? .checkmark : .none
+        cell.accessibilityIdentifier = cellText
         return cell
     }
 }
