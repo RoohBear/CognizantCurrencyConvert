@@ -43,7 +43,7 @@ extension CurrencyConverterPresenter {
     }
     
     private func updateCurrencyCodeList(list: [Currency]) {
-        currencyList = list
+        currencyList = list.sorted()
         updateListPublisher.send()
     }
 }

@@ -11,6 +11,7 @@ struct Currency: Codable, Equatable, Comparable {
     let currencyCode: String
     let currencyName: String
 
+    // because we have this, we can just call sorted() and the currencies will be sorted by name
     static func < (lhs: Currency, rhs: Currency) -> Bool {
         lhs.currencyName < rhs.currencyName
     }
