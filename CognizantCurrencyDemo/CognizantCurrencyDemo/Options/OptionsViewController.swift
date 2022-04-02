@@ -130,6 +130,7 @@ class OptionsViewController: UIViewController {
         if let currency = state?.options.baseCurrency {
             cell.textLabel?.text = "Base Currency: " + currency.currencyCode
             cell.detailTextLabel?.text = currency.currencyName
+            cell.accessibilityIdentifier = currency.currencyCode + ": " + currency.currencyName
         }
         cell.accessoryView = nil
         cell.accessoryType = .disclosureIndicator
