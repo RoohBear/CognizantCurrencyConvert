@@ -8,7 +8,8 @@
 import UIKit
 import Combine
 
-class CurrencyConverterViewController: UIViewController {
+class CurrencyConverterViewController: UIViewController
+{
     @IBOutlet weak var tableFrom:UITableView!
     @IBOutlet weak var tableTo:UITableView!
     @IBOutlet weak var textfieldConvertFrom:UITextField!
@@ -16,6 +17,7 @@ class CurrencyConverterViewController: UIViewController {
     @IBOutlet weak var labelSourceCurrency:UILabel!
     @IBOutlet weak var contentStack: UIStackView!
     @IBOutlet weak var fallbackLabel: UILabel!
+    @IBOutlet weak var switchFavorites: UISwitch!
     
     @IBOutlet weak var activity: UIActivityIndicatorView!
     @IBOutlet weak var rateUpdateActivity: UIActivityIndicatorView!
@@ -43,6 +45,7 @@ class CurrencyConverterViewController: UIViewController {
         super.viewDidLoad()
         
         setTextField()
+        setFavouritesSwitch()
         sinkToPublishers()
         
         activity.startAnimating()
@@ -76,7 +79,14 @@ extension CurrencyConverterViewController {
                                            currencyIndex: currencyIndex.row,
                                            amount: amount)
     }
-    
+
+    // called when user flicks the UISwitch for showing all currencies, or just favourites
+    @IBAction func switchChanged()
+    {
+        self.refreshTableViews()
+    }
+        
+    // sets self.exchangeRateCriteriaUpdate() to be called if the text field text changes
     private func setTextField() {
         NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: self.textfieldConvertFrom)
             .debounce(for: .milliseconds(600), scheduler: RunLoop.main)
@@ -85,7 +95,7 @@ extension CurrencyConverterViewController {
             }
             .store(in: &cancellables)
     }
-    
+
     // called by ViewDidLoad. Subscribes to publishers to update the UI when we get results from the scoop service
     private func sinkToPublishers() {
         // this one updates the tables when we download the currencies
