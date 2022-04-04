@@ -24,7 +24,8 @@ class CurrencyConverterViewController: UIViewController
     
     private var cancellables = Set<AnyCancellable>()
     private var presenter: CurrencyConverterPresenterProtocol!
-    
+    private var favoriteListSubscription: AnyCancellable?
+
     // MARK: Initialisers
     @available(*, unavailable, message: "Use CurrencyConverterViewController.instance(presenter) instead")
     required init?(coder: NSCoder) {
@@ -81,11 +82,19 @@ extension CurrencyConverterViewController {
     }
 
     // called when user flicks the UISwitch for showing all currencies, or just favourites
-    @IBAction func switchChanged()
+    @objc func switchChanged()
     {
-        self.refreshTableViews()
+        self.exchangeRateCriteriaUpdated()
     }
-        
+
+    private func setFavouritesSwitch()
+    {
+        // Would love to do what setTextField does here, but can't seem to figure out how to do that for a UISwitch.
+        // There is nothing like UITextField.textDidChangeNotification for UISwitch objects.
+        // There is no UISwitch.switchDidChangeNotification.
+        switchFavorites.addTarget(self, action:#selector(switchChanged), for:UIControl.Event.valueChanged)
+    }
+    
     // sets self.exchangeRateCriteriaUpdate() to be called if the text field text changes
     private func setTextField() {
         NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: self.textfieldConvertFrom)

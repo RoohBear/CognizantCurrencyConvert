@@ -9,7 +9,8 @@ import Foundation
 import Combine
 
 // Type implements the currency conversion presentation logic
-class CurrencyConverterPresenter: CurrencyConverterPresenterProtocol {
+class CurrencyConverterPresenter: CurrencyConverterPresenterProtocol
+{
     var listUpdatePublisher: AnyPublisher<Void, Never>
     var currencyRatePublisher: AnyPublisher<String?, Never>
     
@@ -32,7 +33,8 @@ class CurrencyConverterPresenter: CurrencyConverterPresenterProtocol {
 }
 
 // MARK: Private Methods
-extension CurrencyConverterPresenter {
+extension CurrencyConverterPresenter
+{
     // called after ScoopService has returned with a conversion for the user to display.
     private func update(exchangeRate: ConvertData) {
         currencyExchangeRatePublisher.send(exchangeRateString(from: exchangeRate))
@@ -73,6 +75,10 @@ extension CurrencyConverterPresenter {
     func viewReady() {
         interactor.currencyList()
             .replaceNil(with: [Currency.defaultCurrency])
+            .filter { x in
+                print("X")
+                return true
+            }
             .sink { [weak self] in
                 self?.updateCurrencyCodeList(list: $0)
             }.store(in: &cancellables)
