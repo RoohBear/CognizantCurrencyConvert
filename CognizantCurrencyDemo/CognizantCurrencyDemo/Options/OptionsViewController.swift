@@ -41,6 +41,13 @@ class OptionsViewController: UIViewController {
         return errorLabel
     }()
 
+    // init() is a Designated initializer and are the primary initializers for a class.
+    //
+    // Convenience initializers are secondary, supporting initializers for a class.
+    // You can define a convenience initializer to call a designated initializer from the same class
+    // as the convenience initializer with some of the designated initializer’s parameters set to
+    // default values. You can also define a convenience initializer to create an instance of that
+    // class for a specific use case or input value type.
     convenience init(presenter: AnyPresenter<OptionsAction, OptionsState>) {
         self.init()
         self.presenter = presenter

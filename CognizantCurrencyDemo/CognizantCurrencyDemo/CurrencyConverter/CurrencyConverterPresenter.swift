@@ -9,9 +9,12 @@ import Foundation
 import Combine
 
 // Type implements the currency conversion presentation logic
-class CurrencyConverterPresenter: CurrencyConverterPresenterProtocol {
+class CurrencyConverterPresenter: CurrencyConverterPresenterProtocol
+{
     var listUpdatePublisher: AnyPublisher<Void, Never>
     var currencyRatePublisher: AnyPublisher<String?, Never>
+    var filterFavourites = false    // false=return all currencies, true=return only favourite currencies
+    var favouriteCurrencies = [Currency]()
     
     private var currencyList: [Currency] = []
     private var exchageRate: ConvertData = ConvertData.defaultConvertData
@@ -21,6 +24,7 @@ class CurrencyConverterPresenter: CurrencyConverterPresenterProtocol {
     
     private var updateListPublisher = PassthroughSubject<Void, Never>()
     private var currencyExchangeRatePublisher = PassthroughSubject<String?, Never>()
+    private var optionsPublisher = PassthroughSubject<Void, Never>()
     
     // MARK:  Initialisers
     required init(with interactor: CurrencyConverterInteractorProtocol) {
@@ -32,7 +36,8 @@ class CurrencyConverterPresenter: CurrencyConverterPresenterProtocol {
 }
 
 // MARK: Private Methods
-extension CurrencyConverterPresenter {
+extension CurrencyConverterPresenter
+{
     // called after ScoopService has returned with a conversion for the user to display.
     private func update(exchangeRate: ConvertData) {
         currencyExchangeRatePublisher.send(exchangeRateString(from: exchangeRate))
@@ -42,8 +47,19 @@ extension CurrencyConverterPresenter {
         "\(String(format: "%.3f", exchangeData.value)) \(exchangeData.to)"
     }
     
-    private func updateCurrencyCodeList(list: [Currency]) {
-        currencyList = list.sorted()
+    private func updateCurrencyCodeList(list: [Currency])
+    {
+        // sort the list and filter out unwanted currencies (if any)
+        currencyList = list.sorted().filter({ currency in
+            if filterFavourites == true {
+                if self.favouriteCurrencies.firstIndex(of: currency) != nil {
+                    return true
+                }
+                return false
+            }else{
+                return true
+            }
+        })
         updateListPublisher.send()
     }
 }
@@ -70,7 +86,9 @@ extension CurrencyConverterPresenter {
         return currencyList[index].currencyName
     }
 
-    func viewReady() {
+    // called by the view controller when it's ready (at the end of viewDidLoad)
+    func viewReady()
+    {
         interactor.currencyList()
             .replaceNil(with: [Currency.defaultCurrency])
             .sink { [weak self] in

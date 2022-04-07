@@ -13,7 +13,9 @@ protocol CurrencyConverterPresenterProtocol
 {
     var listUpdatePublisher: AnyPublisher<Void, Never> { get }
     var currencyRatePublisher: AnyPublisher<String?, Never> { get }
-    
+    var filterFavourites:Bool { get set }    // false=return all currencies, true=return only favourite currencies
+    var favouriteCurrencies:[Currency] { get set }
+
     func viewReady()
     func numberCurrencies() -> Int
     func currencyCode(at index: Int) -> String
