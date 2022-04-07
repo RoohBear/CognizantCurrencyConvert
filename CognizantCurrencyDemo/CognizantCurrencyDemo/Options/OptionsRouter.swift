@@ -13,18 +13,20 @@ protocol OptionsRouterProtocol {
     func routeToCurrencyPicker(selectedCurrencyCode: String) -> AnyPublisher<Currency, Never>
 }
 
-class OptionsRouter: OptionsRouterProtocol {
-
+class OptionsRouter: OptionsRouterProtocol
+{
     private weak var navigationController: UINavigationController!
 
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController)
+    {
         self.navigationController = navigationController
         navigationController.viewControllers = [
             OptionsViewController(presenter: OptionsPresenter(router: self))
         ]
     }
 
-    func routeToCurrencyPicker(selectedCurrencyCode: String) -> AnyPublisher<Currency, Never> {
+    func routeToCurrencyPicker(selectedCurrencyCode: String) -> AnyPublisher<Currency, Never>
+    {
         let currencyPickerPresenter = CurrencyPickerPresenter(
             title: "Base Currency",
             selectedCurrencyCode: selectedCurrencyCode
@@ -33,6 +35,7 @@ class OptionsRouter: OptionsRouterProtocol {
             presenter: currencyPickerPresenter
         )
         navigationController.pushViewController(currencyPickerViewController, animated: true)
+
         return currencyPickerPresenter.selectedCurrencyPublisher
     }
 

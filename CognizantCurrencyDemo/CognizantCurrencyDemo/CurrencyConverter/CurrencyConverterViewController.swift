@@ -22,10 +22,14 @@ class CurrencyConverterViewController: UIViewController
     @IBOutlet weak var activity: UIActivityIndicatorView!
     @IBOutlet weak var rateUpdateActivity: UIActivityIndicatorView!
     
+    // when we subscribe to something, we need to store it somewhere so store them here
     private var cancellables = Set<AnyCancellable>()
     private var presenter: CurrencyConverterPresenterProtocol!
-    private var favoriteListSubscription: AnyCancellable?
 
+    // added by Greg... we subscribe to an OptionsInteractor to know when the user has added/removed favourites
+    private var optionsInteractor = OptionsInteractor(currencyScoopService: CurrencyScoopService(), repository: OptionsRepository())
+    
+    
     // MARK: Initialisers
     @available(*, unavailable, message: "Use CurrencyConverterViewController.instance(presenter) instead")
     required init?(coder: NSCoder) {
@@ -34,8 +38,7 @@ class CurrencyConverterViewController: UIViewController
     
     // MARK: Static Methods
     static func instance(presenter: CurrencyConverterPresenterProtocol) -> CurrencyConverterViewController {
-        let converterViewController = UIStoryboard(name: "Main",
-                                                   bundle: nil)
+        let converterViewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: "converterController") as! CurrencyConverterViewController
         converterViewController.presenter = presenter
         return converterViewController
@@ -55,7 +58,8 @@ class CurrencyConverterViewController: UIViewController
 }
 
 // MARK: Private Methods
-extension CurrencyConverterViewController {
+extension CurrencyConverterViewController
+{
     private func refreshTableViews() {
         activity.stopAnimating()
         contentStack.isHidden = false
@@ -84,7 +88,8 @@ extension CurrencyConverterViewController {
     // called when user flicks the UISwitch for showing all currencies, or just favourites
     @objc func switchChanged()
     {
-        self.exchangeRateCriteriaUpdated()
+        self.presenter.filterFavourites = switchFavorites.isOn
+        presenter.viewReady()
     }
 
     private func setFavouritesSwitch()
@@ -106,15 +111,16 @@ extension CurrencyConverterViewController {
     }
 
     // called by ViewDidLoad. Subscribes to publishers to update the UI when we get results from the scoop service
-    private func sinkToPublishers() {
+    private func sinkToPublishers()
+    {
         // this one updates the tables when we download the currencies
         presenter.listUpdatePublisher.sink {
             self.refreshTableViews()
         }.store(in: &cancellables)
         
-        // this just sets presenter.currencyRatePublisher to update labelResult when presenter publishes a result
-        // (an alternative way of setting self.labelResult)
         #if false
+            // this just sets presenter.currencyRatePublisher to update labelResult when presenter publishes a result
+            // (an alternative way of setting self.labelResult)
             presenter.currencyRatePublisher
                 .assign(to: \.text, on: labelResult)
                 .store(in: &cancellables)
@@ -126,6 +132,13 @@ extension CurrencyConverterViewController {
             self?.rateUpdateActivity.stopAnimating()
             self?.labelResult.text = rate
         }.store(in: &cancellables)
+
+        // subscribe to the options publisher and have it load the users' options
+        optionsInteractor.optionsPublisher.sink { optionsResponse in
+            print("hello from optionsPublisher.sink!")
+            self.presenter.favouriteCurrencies = optionsResponse.favorites
+        }.store(in: &cancellables)
+        optionsInteractor.loadOptionsData()
     }
     
     private func setFromLabel(for index: Int) {
@@ -134,7 +147,8 @@ extension CurrencyConverterViewController {
 }
 
 // MARK: TableView Data Source Methods
-extension CurrencyConverterViewController: UITableViewDataSource {
+extension CurrencyConverterViewController: UITableViewDataSource
+{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberCurrencies()
     }

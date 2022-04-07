@@ -11,7 +11,7 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad()
     {
-        // makes the VC for the 1st tab
+        // make the VC for the 1st tab, and use a REAL service (not a Mock service)
         let currencyConverterViewController = CurrencyConverterViewController.instance(presenter: CurrencyConverterPresenter(with: CurrencyConverterInteractor(service: CurrencyScoopService())))
         currencyConverterViewController.tabBarItem.image = UIImage(systemName: "arrow.right.arrow.left.circle")
 

@@ -16,8 +16,8 @@ protocol OptionsRepositoryProtocol {
     func removeFavorite(currency: Currency)
 }
 
-class OptionsRepository: OptionsRepositoryProtocol {
-
+class OptionsRepository: OptionsRepositoryProtocol
+{
     var options: Options {
         getStoredOptions() ?? Options(baseCurrency: .defaultCurrency, favorites: [])
     }
@@ -49,7 +49,10 @@ class OptionsRepository: OptionsRepositoryProtocol {
         )
     }
 
-    private func storeOptions(_ options: Options) {
+    // called when user adds or removes a favourite
+    // an Options object contains a base currency and an array of favourites, as an array of Currency objects
+    private func storeOptions(_ options: Options)
+    {
         guard let jsonData = try? JSONEncoder().encode(options),
               let jsonString = String(data: jsonData, encoding: .utf8)
         else {
